@@ -9,8 +9,14 @@
             --acid-yellow: #FFD700;
             --fume-white: #F0F8FF;
             --corrosive-black: #1a1a1a;
-            --container-gray: #4C4F4D; /* The "Antimony" Hex */
+            --container-gray: #4C4F4D;
             --danger-red: #FF4500;
+            --success-green: #00FF00;
+            --glow-yellow: rgba(255, 215, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -19,6 +25,7 @@
             font-family: 'Courier New', monospace;
             margin: 0;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Fuming Effect Overlay */
@@ -36,6 +43,23 @@
             50% { opacity: 0.6; }
         }
 
+        /* Particle Effects */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--acid-yellow);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 3s infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0.8; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
         /* Header / Warning Label */
         header {
             background: repeating-linear-gradient(
@@ -50,6 +74,7 @@
             border-bottom: 4px solid white;
             position: relative;
             z-index: 10;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         h1 {
@@ -60,6 +85,13 @@
             border: 2px solid white;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin: 0;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--acid-yellow); }
+            to { text-shadow: 0 0 20px var(--acid-yellow), 0 0 30px var(--acid-yellow); }
         }
 
         .warning-text {
@@ -70,6 +102,77 @@
             margin: 10px auto;
             max-width: 600px;
             padding: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.7; }
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px solid var(--acid-yellow);
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            color: var(--acid-yellow);
+            font-weight: bold;
+        }
+
+        .stat-value {
+            color: var(--success-green);
+            font-size: 1.2em;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--fume-white);
+            border: 2px solid var(--container-gray);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-weight: bold;
+        }
+
+        .nav-tab:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--acid-yellow);
+        }
+
+        .nav-tab.active {
+            background: var(--acid-yellow);
+            color: var(--corrosive-black);
+            border-color: var(--acid-yellow);
+        }
+
+        .game-section {
+            display: none;
+        }
+
+        .game-section.active {
+            display: block;
         }
 
         /* Game Grid */
@@ -78,7 +181,7 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             padding: 40px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             position: relative;
             z-index: 10;
@@ -92,12 +195,37 @@
             text-align: center;
             border-radius: 8px;
             transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
         }
 
         .game-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
             border-color: var(--acid-yellow);
+        }
+
+        .game-card h2 {
+            color: var(--acid-yellow);
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         button {
@@ -108,13 +236,20 @@
             font-family: inherit;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            margin: 5px;
             transition: all 0.2s;
+            border-radius: 4px;
         }
 
-        button:hover {
+        button:hover:not(:disabled) {
             background: var(--acid-yellow);
             color: var(--corrosive-black);
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         /* Canvas Styles */
@@ -123,10 +258,150 @@
             border: 2px solid var(--container-gray);
             display: block;
             margin: 10px auto;
+            image-rendering: pixelated;
         }
 
         /* Game Specific UI */
-        #titration-count { font-size: 2em; color: var(--acid-yellow); }
+        #titration-count { 
+            font-size: 2em; 
+            color: var(--acid-yellow);
+            text-shadow: 0 0 10px var(--glow-yellow);
+            margin: 10px 0;
+        }
+
+        .upgrade-list {
+            text-align: left;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+
+        .upgrade-item {
+            padding: 5px;
+            margin: 5px 0;
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid var(--acid-yellow);
+            padding-left: 10px;
+        }
+
+        /* Reaction Box */
+        #reaction-box {
+            width: 100%;
+            height: 100px;
+            background: #333;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--container-gray);
+            border-radius: 4px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        #reaction-box:hover {
+            border-color: var(--acid-yellow);
+        }
+
+        #reaction-text {
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        /* Memory Game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: var(--container-gray);
+            border: 2px solid var(--acid-yellow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px var(--acid-yellow);
+        }
+
+        .memory-card.flipped {
+            background: var(--acid-yellow);
+            color: var(--corrosive-black);
+        }
+
+        .memory-card.matched {
+            background: var(--success-green);
+            border-color: var(--success-green);
+            cursor: default;
+        }
+
+        /* Falling Blocks */
+        #fallingCanvas {
+            border: 2px solid var(--container-gray);
+        }
+
+        /* Achievement Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--acid-yellow);
+            color: var(--corrosive-black);
+            padding: 15px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            max-width: 300px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Score Display */
+        .score-display {
+            font-size: 1.5em;
+            color: var(--acid-yellow);
+            margin: 10px 0;
+            text-shadow: 0 0 10px var(--glow-yellow);
+        }
+
+        .high-score {
+            color: var(--success-green);
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .arcade-cabinet {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -139,55 +414,281 @@
     <p>Do not expose to moisture. Reacts violently with boredom.</p>
 </header>
 
-<div class="arcade-cabinet">
-
-    <div class="game-card">
-        <h2>Fluorine Polymer Chain</h2>
-        <p>Bind the free radicals. Do not touch the containment walls.</p>
-        <canvas id="snakeCanvas" width="200" height="200"></canvas>
-        <button onclick="startSnake()">Synthesize (Start)</button>
-        <p id="snakeScore">Mass: 0 u</p>
+<div class="stats-bar">
+    <div class="stat-item">
+        Total Games Played: <span class="stat-value" id="totalGames">0</span>
     </div>
-
-    <div class="game-card">
-        <h2>Titration Clicker</h2>
-        <p>Add drops of SbF5 to dissolve the substrate.</p>
-        <div id="titration-count">0.0 mL</div>
-        <button onclick="dripAcid()">Add Drop</button>
-        <button onclick="buyPipette()" id="upgradeBtn" disabled>Buy Pipette (Cost: 10mL)</button>
+    <div class="stat-item">
+        Total Score: <span class="stat-value" id="totalScore">0</span>
     </div>
+    <div class="stat-item">
+        Best Reaction: <span class="stat-value" id="bestReaction">--</span>ms
+    </div>
+</div>
 
-    <div class="game-card">
-        <h2>Proton Exchange</h2>
-        <p>Wait for the solution to turn YELLOW, then click reacting quickly!</p>
-        <div id="reaction-box" style="width: 100%; height: 100px; background: #333; margin: 10px 0; display: flex; align-items: center; justify-content: center;">
-            <span id="reaction-text">Stabilizing...</span>
+<div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('games')">Games</button>
+    <button class="nav-tab" onclick="showSection('stats')">Statistics</button>
+    <button class="nav-tab" onclick="showSection('achievements')">Achievements</button>
+</div>
+
+<div id="games-section" class="game-section active">
+    <div class="arcade-cabinet">
+
+        <div class="game-card">
+            <h2>Fluorine Polymer Chain</h2>
+            <p>Bind the free radicals. Use arrow keys to navigate. Avoid walls and yourself!</p>
+            <canvas id="snakeCanvas" width="300" height="300"></canvas>
+            <button onclick="startSnake()">Synthesize (Start)</button>
+            <button onclick="pauseSnake()" id="pauseBtn">Pause</button>
+            <div class="score-display">
+                <div id="snakeScore">Mass: 0 u</div>
+                <div class="high-score">High Score: <span id="snakeHighScore">0</span> u</div>
+            </div>
         </div>
-        <button onclick="startReaction()">Initialize</button>
-    </div>
 
+        <div class="game-card">
+            <h2>Titration Clicker</h2>
+            <p>Add drops of SbF5 to dissolve the substrate. Buy upgrades to automate!</p>
+            <div id="titration-count">0.0 mL</div>
+            <button onclick="dripAcid()">Add Drop (+1mL)</button>
+            <div class="upgrade-list" id="upgradeList"></div>
+        </div>
+
+        <div class="game-card">
+            <h2>Proton Exchange</h2>
+            <p>Wait for the solution to turn YELLOW, then click as fast as possible!</p>
+            <div id="reaction-box">
+                <span id="reaction-text">Click Initialize to Start</span>
+            </div>
+            <button onclick="startReaction()">Initialize</button>
+            <div class="score-display">
+                <div id="reactionScore">Last: --</div>
+                <div class="high-score">Best: <span id="reactionHighScore">--</span>ms</div>
+            </div>
+        </div>
+
+        <div class="game-card">
+            <h2>Molecular Memory</h2>
+            <p>Match the molecular structures! Find all pairs to complete the reaction.</p>
+            <div class="memory-grid" id="memoryGrid"></div>
+            <button onclick="startMemoryGame()">New Reaction</button>
+            <div class="score-display">
+                <div id="memoryScore">Moves: 0</div>
+                <div class="high-score">Best: <span id="memoryHighScore">--</span> moves</div>
+            </div>
+        </div>
+
+        <div class="game-card">
+            <h2>Precipitation Reaction</h2>
+            <p>Control the falling ions. Match colors to neutralize and score!</p>
+            <canvas id="fallingCanvas" width="300" height="400"></canvas>
+            <button onclick="startFallingGame()">Start Precipitation</button>
+            <div class="score-display">
+                <div id="fallingScore">Score: 0</div>
+                <div class="high-score">High Score: <span id="fallingHighScore">0</span></div>
+            </div>
+        </div>
+
+        <div class="game-card">
+            <h2>Acid-Base Balance</h2>
+            <p>Keep the pH balanced! Click to neutralize excess acid or base.</p>
+            <div id="ph-meter" style="width: 100%; height: 60px; background: linear-gradient(to right, #0000FF, #00FFFF, #00FF00, #FFFF00, #FF0000); margin: 15px 0; border: 2px solid white; position: relative; border-radius: 4px;">
+                <div id="ph-indicator" style="position: absolute; top: -5px; width: 10px; height: 70px; background: white; left: 50%; transform: translateX(-50%); border: 2px solid black;"></div>
+            </div>
+            <div id="ph-value" style="font-size: 2em; color: var(--acid-yellow); margin: 10px 0;">pH: 7.0</div>
+            <button onclick="startPHGame()">Start Balancing</button>
+            <div class="score-display">
+                <div id="phScore">Balance Time: 0s</div>
+                <div class="high-score">Best: <span id="phHighScore">0</span>s</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="stats-section" class="game-section">
+    <div class="arcade-cabinet">
+        <div class="game-card" style="max-width: 800px; margin: 0 auto;">
+            <h2>Game Statistics</h2>
+            <div id="statsContent" style="text-align: left; padding: 20px;">
+                <h3 style="color: var(--acid-yellow);">Overall Stats</h3>
+                <p>Total Games Played: <span id="statTotalGames">0</span></p>
+                <p>Total Score: <span id="statTotalScore">0</span></p>
+                <p>Best Reaction Time: <span id="statBestReaction">--</span>ms</p>
+                
+                <h3 style="color: var(--acid-yellow); margin-top: 30px;">Game Breakdown</h3>
+                <p>Snake High Score: <span id="statSnakeHigh">0</span></p>
+                <p>Clicker Total Volume: <span id="statClickerTotal">0</span> mL</p>
+                <p>Memory Best Moves: <span id="statMemoryBest">--</span></p>
+                <p>Falling Blocks High Score: <span id="statFallingHigh">0</span></p>
+                <p>pH Balance Best Time: <span id="statPHBest">0</span>s</p>
+            </div>
+            <button onclick="resetStats()" style="background: var(--danger-red); border-color: var(--danger-red);">Reset All Stats</button>
+        </div>
+    </div>
+</div>
+
+<div id="achievements-section" class="game-section">
+    <div class="arcade-cabinet">
+        <div class="game-card" style="max-width: 800px; margin: 0 auto;">
+            <h2>Achievements</h2>
+            <div id="achievementsContent" style="text-align: left; padding: 20px;">
+                <!-- Achievements will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    // --- GAME 1: SNAKE (Polymer Chain) ---
+    // ===== STORAGE & STATS MANAGEMENT =====
+    function loadStats() {
+        const stats = JSON.parse(localStorage.getItem('sbF5Stats') || '{}');
+        return {
+            totalGames: stats.totalGames || 0,
+            totalScore: stats.totalScore || 0,
+            bestReaction: stats.bestReaction || null,
+            snakeHighScore: stats.snakeHighScore || 0,
+            clickerTotal: stats.clickerTotal || 0,
+            memoryBest: stats.memoryBest || null,
+            fallingHighScore: stats.fallingHighScore || 0,
+            phBest: stats.phBest || 0,
+            achievements: stats.achievements || []
+        };
+    }
+
+    function saveStats(stats) {
+        localStorage.setItem('sbF5Stats', JSON.stringify(stats));
+        updateStatsDisplay();
+    }
+
+    function updateStatsDisplay() {
+        const stats = loadStats();
+        document.getElementById('totalGames').textContent = stats.totalGames;
+        document.getElementById('totalScore').textContent = stats.totalScore;
+        document.getElementById('bestReaction').textContent = stats.bestReaction || '--';
+        
+        document.getElementById('statTotalGames').textContent = stats.totalGames;
+        document.getElementById('statTotalScore').textContent = stats.totalScore;
+        document.getElementById('statBestReaction').textContent = stats.bestReaction || '--';
+        document.getElementById('statSnakeHigh').textContent = stats.snakeHighScore;
+        document.getElementById('statClickerTotal').textContent = stats.clickerTotal;
+        document.getElementById('statMemoryBest').textContent = stats.memoryBest || '--';
+        document.getElementById('statFallingHigh').textContent = stats.fallingHighScore;
+        document.getElementById('statPHBest').textContent = stats.phBest;
+        
+        document.getElementById('snakeHighScore').textContent = stats.snakeHighScore;
+        document.getElementById('reactionHighScore').textContent = stats.bestReaction || '--';
+        document.getElementById('memoryHighScore').textContent = stats.memoryBest || '--';
+        document.getElementById('fallingHighScore').textContent = stats.fallingHighScore;
+        document.getElementById('phHighScore').textContent = stats.phBest;
+        
+        updateAchievementsDisplay();
+    }
+
+    function unlockAchievement(id, name, description) {
+        const stats = loadStats();
+        if (!stats.achievements.includes(id)) {
+            stats.achievements.push(id);
+            saveStats(stats);
+            showToast(`Achievement Unlocked: ${name}`, description);
+        }
+    }
+
+    function updateAchievementsDisplay() {
+        const stats = loadStats();
+        const achievements = [
+            { id: 'first_game', name: 'First Reaction', desc: 'Play your first game', unlocked: stats.achievements.includes('first_game') },
+            { id: 'snake_50', name: 'Polymer Master', desc: 'Score 50+ in Snake', unlocked: stats.achievements.includes('snake_50') },
+            { id: 'clicker_100', name: 'Titration Expert', desc: 'Reach 100mL in Clicker', unlocked: stats.achievements.includes('clicker_100') },
+            { id: 'reaction_200', name: 'Lightning Fast', desc: 'Reaction time under 200ms', unlocked: stats.achievements.includes('reaction_200') },
+            { id: 'memory_20', name: 'Molecular Memory', desc: 'Complete Memory in 20 moves', unlocked: stats.achievements.includes('memory_20') },
+            { id: 'falling_500', name: 'Precipitation Pro', desc: 'Score 500+ in Falling Blocks', unlocked: stats.achievements.includes('falling_500') },
+            { id: 'ph_30', name: 'Perfect Balance', desc: 'Balance pH for 30 seconds', unlocked: stats.achievements.includes('ph_30') }
+        ];
+        
+        const container = document.getElementById('achievementsContent');
+        container.innerHTML = achievements.map(a => `
+            <div style="padding: 10px; margin: 10px 0; background: ${a.unlocked ? 'rgba(0,255,0,0.1)' : 'rgba(255,255,255,0.05)'}; border-left: 4px solid ${a.unlocked ? 'var(--success-green)' : 'var(--container-gray)'};">
+                <strong style="color: ${a.unlocked ? 'var(--success-green)' : 'var(--fume-white)'};">${a.unlocked ? '✓' : '○'} ${a.name}</strong>
+                <p style="margin: 5px 0; font-size: 0.9em;">${a.desc}</p>
+            </div>
+        `).join('');
+    }
+
+    function showToast(title, message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `<strong>${title}</strong><br>${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.animation = 'slideIn 0.3s ease-out reverse';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    function resetStats() {
+        if (confirm('Are you sure you want to reset all statistics? This cannot be undone!')) {
+            localStorage.removeItem('sbF5Stats');
+            updateStatsDisplay();
+            showToast('Stats Reset', 'All statistics have been cleared.');
+        }
+    }
+
+    // ===== NAVIGATION =====
+    function showSection(section) {
+        document.querySelectorAll('.game-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        
+        document.getElementById(section + '-section').classList.add('active');
+        event.target.classList.add('active');
+    }
+
+    // ===== GAME 1: ENHANCED SNAKE =====
     const canvas = document.getElementById('snakeCanvas');
     const ctx = canvas.getContext('2d');
+    const gridSize = 20;
+    const tileSize = canvas.width / gridSize;
+    
     let snake = [{x: 10, y: 10}];
     let food = {x: 15, y: 15};
     let dx = 0;
     let dy = 0;
     let score = 0;
     let gameLoop;
+    let isPaused = false;
+    let isRunning = false;
 
     function startSnake() {
+        if (isRunning) return;
         snake = [{x: 10, y: 10}];
         dx = 1; dy = 0; score = 0;
+        isPaused = false;
+        isRunning = true;
         clearInterval(gameLoop);
-        gameLoop = setInterval(updateSnake, 100);
+        gameLoop = setInterval(updateSnake, 120);
         document.addEventListener('keydown', changeDirection);
+        updateSnakeScore();
+        
+        const stats = loadStats();
+        stats.totalGames++;
+        saveStats(stats);
+        unlockAchievement('first_game', 'First Reaction', 'You started your first game!');
+    }
+
+    function pauseSnake() {
+        if (!isRunning) return;
+        isPaused = !isPaused;
+        document.getElementById('pauseBtn').textContent = isPaused ? 'Resume' : 'Pause';
+        if (isPaused) {
+            clearInterval(gameLoop);
+        } else {
+            gameLoop = setInterval(updateSnake, 120);
+        }
     }
 
     function changeDirection(event) {
+        if (isPaused) return;
         const LEFT = 37; const RIGHT = 39; const UP = 38; const DOWN = 40;
         const key = event.keyCode;
         if (key === LEFT && dx !== 1) { dx = -1; dy = 0; }
@@ -197,64 +698,169 @@
     }
 
     function updateSnake() {
+        if (isPaused) return;
+        
         const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+        
+        // Check self collision
+        if (snake.some(part => part.x === head.x && part.y === head.y)) {
+            endSnake();
+            return;
+        }
+        
         snake.unshift(head);
 
         if (head.x === food.x && head.y === food.y) {
             score += 10;
-            document.getElementById('snakeScore').innerText = 'Mass: ' + score + ' u';
-            food = {x: Math.floor(Math.random()*20), y: Math.floor(Math.random()*20)};
+            updateSnakeScore();
+            do {
+                food = {x: Math.floor(Math.random()*gridSize), y: Math.floor(Math.random()*gridSize)};
+            } while (snake.some(part => part.x === food.x && part.y === food.y));
+            
+            const stats = loadStats();
+            stats.totalScore += 10;
+            if (score > stats.snakeHighScore) {
+                stats.snakeHighScore = score;
+                if (score >= 50) unlockAchievement('snake_50', 'Polymer Master', 'Scored 50+ in Snake!');
+            }
+            saveStats(stats);
         } else {
             snake.pop();
         }
 
-        ctx.fillStyle = '#1a1a1a';
+        // Check wall collision
+        if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
+            endSnake();
+            return;
+        }
+
+        // Draw
+        ctx.fillStyle = '#000';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Draw Snake (Viscous Green)
-        ctx.fillStyle = '#00FF00'; 
-        snake.forEach(part => ctx.fillRect(part.x*10, part.y*10, 9, 9));
-
-        // Draw Food (Electron)
-        ctx.fillStyle = '#FFD700';
-        ctx.fillRect(food.x*10, food.y*10, 9, 9);
-
-        if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20) {
-            clearInterval(gameLoop);
-            alert("Containment Breach! Polymer destabilized.");
+        // Draw grid
+        ctx.strokeStyle = '#222';
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= gridSize; i++) {
+            ctx.beginPath();
+            ctx.moveTo(i * tileSize, 0);
+            ctx.lineTo(i * tileSize, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, i * tileSize);
+            ctx.lineTo(canvas.width, i * tileSize);
+            ctx.stroke();
         }
+        
+        // Draw Snake
+        snake.forEach((part, i) => {
+            ctx.fillStyle = i === 0 ? '#00FF00' : '#00CC00';
+            ctx.fillRect(part.x * tileSize + 1, part.y * tileSize + 1, tileSize - 2, tileSize - 2);
+        });
+
+        // Draw Food with glow
+        ctx.fillStyle = '#FFD700';
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#FFD700';
+        ctx.fillRect(food.x * tileSize + 2, food.y * tileSize + 2, tileSize - 4, tileSize - 4);
+        ctx.shadowBlur = 0;
     }
 
-    // --- GAME 2: CLICKER (Titration) ---
-    let volume = 0;
-    let autoClicker = 0;
+    function updateSnakeScore() {
+        document.getElementById('snakeScore').textContent = 'Mass: ' + score + ' u';
+    }
+
+    function endSnake() {
+        clearInterval(gameLoop);
+        isRunning = false;
+        isPaused = false;
+        document.getElementById('pauseBtn').textContent = 'Pause';
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        alert("Containment Breach! Polymer destabilized. Final Mass: " + score + " u");
+    }
+
+    // ===== GAME 2: ENHANCED CLICKER =====
+    let volume = parseFloat(localStorage.getItem('clickerVolume') || '0');
+    let autoClickers = JSON.parse(localStorage.getItem('clickerUpgrades') || '[]');
+    let clickerIntervals = [];
+
+    const upgrades = [
+        { id: 'pipette', name: 'Pipette', cost: 10, rate: 1, desc: 'Auto-drip every second' },
+        { id: 'burette', name: 'Burette', cost: 50, rate: 2, desc: 'Auto-drip 2x faster' },
+        { id: 'autotitrator', name: 'Auto-Titrator', cost: 200, rate: 5, desc: 'Auto-drip 5x faster' },
+        { id: 'reactor', name: 'Reactor', cost: 1000, rate: 10, desc: 'Auto-drip 10x faster' }
+    ];
 
     function dripAcid() {
         volume += 1;
         updateTitrationUI();
+        const stats = loadStats();
+        stats.totalScore += 1;
+        stats.clickerTotal += 1;
+        if (stats.clickerTotal >= 100) unlockAchievement('clicker_100', 'Titration Expert', 'Reached 100mL total!');
+        saveStats(stats);
     }
 
-    function buyPipette() {
-        if (volume >= 10) {
-            volume -= 10;
-            autoClicker++;
+    function buyUpgrade(upgradeId) {
+        const upgrade = upgrades.find(u => u.id === upgradeId);
+        if (!upgrade || volume < upgrade.cost) return;
+        
+        volume -= upgrade.cost;
+        autoClickers.push(upgradeId);
+        localStorage.setItem('clickerVolume', volume.toString());
+        localStorage.setItem('clickerUpgrades', JSON.stringify(autoClickers));
+        
+        const interval = setInterval(() => {
+            volume += upgrade.rate;
             updateTitrationUI();
-            setInterval(() => { volume += 1; updateTitrationUI(); }, 1000);
-        }
+            const stats = loadStats();
+            stats.totalScore += upgrade.rate;
+            stats.clickerTotal += upgrade.rate;
+            saveStats(stats);
+        }, 1000);
+        clickerIntervals.push(interval);
+        
+        updateTitrationUI();
     }
 
     function updateTitrationUI() {
-        document.getElementById('titration-count').innerText = volume.toFixed(1) + " mL";
-        const btn = document.getElementById('upgradeBtn');
-        if (volume >= 10) {
-            btn.disabled = false;
-            btn.innerText = "Buy Pipette (Cost: 10mL)";
-        } else {
-            btn.disabled = true;
-        }
+        document.getElementById('titration-count').textContent = volume.toFixed(1) + " mL";
+        localStorage.setItem('clickerVolume', volume.toString());
+        
+        const list = document.getElementById('upgradeList');
+        list.innerHTML = upgrades.map(upgrade => {
+            const owned = autoClickers.filter(id => id === upgrade.id).length;
+            const canAfford = volume >= upgrade.cost;
+            return `
+                <div class="upgrade-item">
+                    <strong>${upgrade.name}</strong> (Owned: ${owned})<br>
+                    ${upgrade.desc} - Cost: ${upgrade.cost}mL
+                    <button onclick="buyUpgrade('${upgrade.id}')" ${!canAfford ? 'disabled' : ''} style="float: right; margin: 0; padding: 5px 10px; font-size: 0.8em;">
+                        Buy
+                    </button>
+                </div>
+            `;
+        }).join('');
     }
 
-    // --- GAME 3: REFLEX (Proton Exchange) ---
+    // Restore auto-clickers on load
+    autoClickers.forEach(upgradeId => {
+        const upgrade = upgrades.find(u => u.id === upgradeId);
+        if (upgrade) {
+            const interval = setInterval(() => {
+                volume += upgrade.rate;
+                updateTitrationUI();
+                const stats = loadStats();
+                stats.totalScore += upgrade.rate;
+                stats.clickerTotal += upgrade.rate;
+                saveStats(stats);
+            }, 1000);
+            clickerIntervals.push(interval);
+        }
+    });
+
+    // ===== GAME 3: ENHANCED REFLEX =====
     const rBox = document.getElementById('reaction-box');
     const rText = document.getElementById('reaction-text');
     let reactionStartTime = 0;
@@ -265,8 +871,10 @@
         isWaiting = true;
         rBox.style.background = '#333';
         rText.innerText = "Wait for YELLOW...";
+        rText.style.color = 'white';
+        rBox.onclick = null;
         
-        const randomDelay = Math.floor(Math.random() * 3000) + 1000;
+        const randomDelay = Math.floor(Math.random() * 4000) + 1500;
         
         setTimeout(() => {
             rBox.style.background = '#FFD700';
@@ -278,14 +886,289 @@
     }
 
     function endReaction() {
-        if (!isWaiting) return;
+        if (!isWaiting || !reactionStartTime) return;
         const time = Date.now() - reactionStartTime;
         rText.innerText = `Reaction Time: ${time}ms`;
         rText.style.color = 'white';
-        rBox.style.background = 'green';
+        rBox.style.background = time < 200 ? '#00FF00' : time < 400 ? '#90EE90' : '#FFA500';
         rBox.onclick = null;
         isWaiting = false;
+        
+        document.getElementById('reactionScore').textContent = `Last: ${time}ms`;
+        
+        const stats = loadStats();
+        stats.totalGames++;
+        if (!stats.bestReaction || time < stats.bestReaction) {
+            stats.bestReaction = time;
+            if (time < 200) unlockAchievement('reaction_200', 'Lightning Fast', 'Reaction time under 200ms!');
+        }
+        saveStats(stats);
+        
+        setTimeout(() => {
+            rText.innerText = "Click Initialize to Start";
+            rBox.style.background = '#333';
+        }, 2000);
     }
+
+    // ===== GAME 4: MEMORY GAME =====
+    const symbols = ['H', 'O', 'C', 'N', 'F', 'S', 'Cl', 'Br'];
+    let memoryCards = [];
+    let flippedCards = [];
+    let moves = 0;
+    let matchedPairs = 0;
+
+    function startMemoryGame() {
+        moves = 0;
+        matchedPairs = 0;
+        flippedCards = [];
+        memoryCards = [];
+        
+        const pairs = [...symbols, ...symbols];
+        for (let i = pairs.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+        }
+        
+        memoryCards = pairs.map((symbol, index) => ({
+            id: index,
+            symbol: symbol,
+            flipped: false,
+            matched: false
+        }));
+        
+        renderMemoryGame();
+    }
+
+    function renderMemoryGame() {
+        const grid = document.getElementById('memoryGrid');
+        grid.innerHTML = memoryCards.map(card => `
+            <div class="memory-card ${card.flipped ? 'flipped' : ''} ${card.matched ? 'matched' : ''}" 
+                 onclick="flipCard(${card.id})" 
+                 style="cursor: ${card.matched ? 'default' : 'pointer'}">
+                ${card.flipped || card.matched ? card.symbol : '?'}
+            </div>
+        `).join('');
+    }
+
+    function flipCard(id) {
+        const card = memoryCards[id];
+        if (card.flipped || card.matched || flippedCards.length >= 2) return;
+        
+        card.flipped = true;
+        flippedCards.push(card);
+        renderMemoryGame();
+        
+        if (flippedCards.length === 2) {
+            moves++;
+            document.getElementById('memoryScore').textContent = `Moves: ${moves}`;
+            
+            setTimeout(() => {
+                if (flippedCards[0].symbol === flippedCards[1].symbol) {
+                    flippedCards[0].matched = true;
+                    flippedCards[1].matched = true;
+                    matchedPairs++;
+                    
+                    if (matchedPairs === symbols.length) {
+                        const stats = loadStats();
+                        stats.totalGames++;
+                        if (!stats.memoryBest || moves < stats.memoryBest) {
+                            stats.memoryBest = moves;
+                            if (moves <= 20) unlockAchievement('memory_20', 'Molecular Memory', 'Completed in 20 moves!');
+                        }
+                        saveStats(stats);
+                        alert(`Reaction Complete! You matched all pairs in ${moves} moves!`);
+                    }
+                } else {
+                    flippedCards[0].flipped = false;
+                    flippedCards[1].flipped = false;
+                }
+                flippedCards = [];
+                renderMemoryGame();
+            }, 1000);
+        }
+    }
+
+    // ===== GAME 5: FALLING BLOCKS =====
+    const fallingCanvas = document.getElementById('fallingCanvas');
+    const fallingCtx = fallingCanvas.getContext('2d');
+    const blockSize = 30;
+    const cols = Math.floor(fallingCanvas.width / blockSize);
+    let fallingBlocks = [];
+    let fallingScore = 0;
+    let fallingGameRunning = false;
+    let fallingGameLoop;
+
+    function startFallingGame() {
+        fallingBlocks = [];
+        fallingScore = 0;
+        fallingGameRunning = true;
+        fallingCanvas.onclick = handleFallingClick;
+        fallingGameLoop = setInterval(updateFallingGame, 50);
+        updateFallingScore();
+    }
+
+    function updateFallingGame() {
+        // Add new block
+        if (Math.random() < 0.1) {
+            fallingBlocks.push({
+                x: Math.floor(Math.random() * cols) * blockSize,
+                y: -blockSize,
+                color: ['#FFD700', '#00FF00', '#FF4500', '#00FFFF'][Math.floor(Math.random() * 4)],
+                speed: 2 + Math.random() * 2
+            });
+        }
+        
+        // Update blocks
+        fallingBlocks = fallingBlocks.filter(block => {
+            block.y += block.speed;
+            return block.y < fallingCanvas.height;
+        });
+        
+        // Check matches
+        const blocksByX = {};
+        fallingBlocks.forEach(block => {
+            const col = Math.floor(block.x / blockSize);
+            if (!blocksByX[col]) blocksByX[col] = [];
+            blocksByX[col].push(block);
+        });
+        
+        Object.keys(blocksByX).forEach(col => {
+            const blocks = blocksByX[col];
+            if (blocks.length >= 3) {
+                const color = blocks[0].color;
+                if (blocks.every(b => b.color === color)) {
+                    fallingScore += blocks.length * 10;
+                    blocks.forEach(b => {
+                        const index = fallingBlocks.indexOf(b);
+                        if (index > -1) fallingBlocks.splice(index, 1);
+                    });
+                }
+            }
+        });
+        
+        // Draw
+        fallingCtx.fillStyle = '#000';
+        fallingCtx.fillRect(0, 0, fallingCanvas.width, fallingCanvas.height);
+        
+        fallingBlocks.forEach(block => {
+            fallingCtx.fillStyle = block.color;
+            fallingCtx.fillRect(block.x, block.y, blockSize - 2, blockSize - 2);
+        });
+        
+        updateFallingScore();
+        
+        // Game over check
+        if (fallingBlocks.some(b => b.y >= fallingCanvas.height - blockSize)) {
+            endFallingGame();
+        }
+    }
+
+    function handleFallingClick(e) {
+        const rect = fallingCanvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const col = Math.floor(x / blockSize);
+        
+        fallingBlocks = fallingBlocks.filter(block => {
+            const blockCol = Math.floor(block.x / blockSize);
+            return blockCol !== col;
+        });
+    }
+
+    function updateFallingScore() {
+        document.getElementById('fallingScore').textContent = `Score: ${fallingScore}`;
+        const stats = loadStats();
+        stats.totalScore = (stats.totalScore || 0) + (fallingScore - (stats.lastFallingScore || 0));
+        stats.lastFallingScore = fallingScore;
+        if (fallingScore > stats.fallingHighScore) {
+            stats.fallingHighScore = fallingScore;
+            if (fallingScore >= 500) unlockAchievement('falling_500', 'Precipitation Pro', 'Scored 500+!');
+        }
+        saveStats(stats);
+    }
+
+    function endFallingGame() {
+        clearInterval(fallingGameLoop);
+        fallingGameRunning = false;
+        fallingCanvas.onclick = null;
+        const stats = loadStats();
+        stats.totalGames++;
+        saveStats(stats);
+        alert(`Precipitation Complete! Final Score: ${fallingScore}`);
+    }
+
+    // ===== GAME 6: pH BALANCE =====
+    let phValue = 7.0;
+    let phDirection = 1;
+    let phGameRunning = false;
+    let phGameLoop;
+    let phBalanceTime = 0;
+    let phStartTime = 0;
+
+    function startPHGame() {
+        phValue = 7.0;
+        phDirection = Math.random() < 0.5 ? -1 : 1;
+        phGameRunning = true;
+        phBalanceTime = 0;
+        phStartTime = Date.now();
+        phGameLoop = setInterval(updatePHGame, 100);
+    }
+
+    function updatePHGame() {
+        phValue += (Math.random() - 0.5) * 0.5 * phDirection;
+        phValue = Math.max(0, Math.min(14, phValue));
+        
+        const indicator = document.getElementById('ph-indicator');
+        const percent = (phValue / 14) * 100;
+        indicator.style.left = percent + '%';
+        
+        const phDisplay = document.getElementById('ph-value');
+        phDisplay.textContent = `pH: ${phValue.toFixed(1)}`;
+        
+        // Color based on pH
+        if (phValue < 3) phDisplay.style.color = '#FF0000';
+        else if (phValue < 6) phDisplay.style.color = '#FFA500';
+        else if (phValue < 8) phDisplay.style.color = '#00FF00';
+        else if (phValue < 11) phDisplay.style.color = '#00FFFF';
+        else phDisplay.style.color = '#0000FF';
+        
+        // Check if balanced (between 6.5 and 7.5)
+        if (phValue >= 6.5 && phValue <= 7.5) {
+            phBalanceTime = (Date.now() - phStartTime) / 1000;
+            document.getElementById('phScore').textContent = `Balance Time: ${phBalanceTime.toFixed(1)}s`;
+            
+            const stats = loadStats();
+            if (phBalanceTime > stats.phBest) {
+                stats.phBest = phBalanceTime;
+                if (phBalanceTime >= 30) unlockAchievement('ph_30', 'Perfect Balance', 'Balanced for 30 seconds!');
+            }
+            saveStats(stats);
+        } else {
+            phStartTime = Date.now();
+        }
+        
+        // Random direction change
+        if (Math.random() < 0.02) {
+            phDirection *= -1;
+        }
+    }
+
+    // Initialize
+    updateStatsDisplay();
+    updateTitrationUI();
+    updateAchievementsDisplay();
+    
+    // Create floating particles
+    setInterval(() => {
+        if (Math.random() < 0.3) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (2 + Math.random() * 3) + 's';
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 5000);
+        }
+    }, 1000);
 </script>
 
 </body>
