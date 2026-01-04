@@ -2,39 +2,249 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My Website</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name – Engineer & Builder</title>
+  <meta name="description" content="Personal website and portfolio" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
+    :root {
+      --bg: #020617;
+      --panel: #020617;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: #1e293b;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 20% -10%, #0f172a, transparent), var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(2, 6, 23, 0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 1rem 1.5rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
+      justify-content: space-between;
     }
-    .card {
+
+    .nav strong { font-weight: 700; }
+
+    .nav a {
+      margin-left: 1.25rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .hero-actions {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
       background: #020617;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: linear-gradient(180deg, #38bdf8, #0ea5e9);
+      color: #020617;
+      border: none;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      background: rgba(2, 6, 23, 0.6);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #38bdf8;
+    }
+
+    .card h3 { margin-top: 0; }
+    .card p { color: var(--muted); }
+
+    .tags {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
       text-align: center;
-      max-width: 420px;
+      color: var(--muted);
     }
-    h1 {
-      margin-bottom: 0.5rem;
-    }
-    p {
-      opacity: 0.8;
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>🚀 My Website</h1>
-    <p>This site is hosted on my laptop.</p>
+
+<header>
+  <div class="nav">
+    <strong>Your Name</strong>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Building reliable systems<br/>from silicon to software</h1>
+    <p>
+      Computer engineering student focused on hardware design, low‑level systems,
+      and practical engineering. I build things that work — and explain how.
+    </p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#projects">View Projects</a>
+      <a class="btn" href="#contact">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Selected Projects</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>FPGA-Based Signal Processor</h3>
+      <p>Designed and simulated a pipelined DSP core with Verilog and timing closure.</p>
+      <div class="tags">
+        <span class="tag">Verilog</span>
+        <span class="tag">FPGA</span>
+        <span class="tag">DSP</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Neural Network Time-Series Models</h3>
+      <p>Implemented and analyzed RNN, LSTM, and GRU models for temperature forecasting.</p>
+      <div class="tags">
+        <span class="tag">PyTorch</span>
+        <span class="tag">ML</span>
+        <span class="tag">Time Series</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Ethernet & Embedded Systems Lab</h3>
+      <p>Debugged real hardware issues involving NICs, drivers, and network stacks.</p>
+      <div class="tags">
+        <span class="tag">Networking</span>
+        <span class="tag">Embedded</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p style="max-width: 700px; color: var(--muted)">
+    I’m a computer engineering student applying to graduate school, with strong
+    interests in hardware design, computer architecture, and systems‑level
+    problem solving. I also enjoy teaching and building clear explanations
+    around complex technical topics.
+  </p>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p style="color: var(--muted)">You can reach me here:</p>
+  <p>
+    <a href="mailto:youremail@example.com">youremail@example.com</a><br/>
+    <a href="https://github.com/USERNAME">GitHub</a> ·
+    <a href="https://www.linkedin.com/in/USERNAME">LinkedIn</a>
+  </p>
+</section>
+
+<footer>
+  © <span id="year"></span> Your Name. Built with GitHub Pages.
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
