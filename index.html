@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alex Clunan | Portfolio</title>
-    <meta name="description" content="Portfolio of Alex Clunan - Engineering & Development">
+    <meta name="description" content="Portfolio of Alex Clunan - Electrical Engineer & Hardware Designer">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -30,9 +30,9 @@
         <div class="container hero-content">
             <p class="greeting">Hi, my name is</p>
             <h1>Alex Clunan.</h1>
-            <h2 class="subtitle">I build systems and solve problems.</h2>
+            <h2 class="subtitle">I design hardware for the intelligent edge.</h2>
             <p class="hero-text">
-                I am a passionate engineer and developer. I specialize in turning complex problems into elegant solutions, with a focus on [Insert Key Skill from Notion, e.g., FPGA Design, Software Development].
+                I am an Electrical Engineer specializing in VLSI design, computer architecture, and embedded machine learning. I bridge the gap between complex algorithms and efficient hardware implementation.
             </p>
             <div class="cta-buttons">
                 <a href="#projects" class="btn primary">View My Work</a>
@@ -47,23 +47,26 @@
             <div class="about-grid">
                 <div class="about-text">
                     <p>
-                        Hello! I'm Alex, based in [Location]. I enjoy creating things that live on the internet and in hardware. My interest in engineering started when...
+                        My journey into engineering wasn't linear. I started with a focus on pre-med, volunteering as an <strong>EMT</strong> for the Charlottesville-Albemarle Rescue Squad. That high-pressure environment taught me rapid problem-solving, but I realized my true passion lay in the technology that powers modern systems.
                     </p>
                     <p>
-                        Fast-forward to today, and I've had the privilege of working on [mention interesting projects]. My main focus these days is building accessible, inclusive products and digital experiences.
+                        I pivoted to <strong>Electrical Engineering</strong>, where I now focus on VLSI and hardware architecture. Beyond the lab, I serve as the <strong>Audio Engineer</strong> for my rock band, blending my technical skills with creative expression to manage live mixes.
+                    </p>
+                    <p>
+                        Today, I work on optimizing deep learning models for neuromorphic hardware and designing secure radio systems on FPGAs.
                     </p>
                     <ul class="skills-list">
-                        <li>Python</li>
-                        <li>C++</li>
-                        <li>Verilog / FPGA</li>
-                        <li>Git & GitHub</li>
-                        <li>System Design</li>
-                        <li>Web Technologies</li>
+                        <li>Verilog / SystemVerilog</li>
+                        <li>Python (PyTorch)</li>
+                        <li>FPGA Design (Vivado/Vitis)</li>
+                        <li>C / C++</li>
+                        <li>Neuromorphic Computing</li>
+                        <li>MATLAB</li>
                     </ul>
                 </div>
                 <div class="about-img">
                     <div class="img-wrapper">
-                        <img src="https://via.placeholder.com/300" alt="Alex Clunan">
+                        <img src="profile.jpg" alt="Alex Clunan" onerror="this.src='https://via.placeholder.com/300'">
                     </div>
                 </div>
             </div>
@@ -72,7 +75,7 @@
 
     <section id="projects" class="section bg-light">
         <div class="container">
-            <h2 class="section-title">Some Things I've Built</h2>
+            <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
                 
                 <div class="project-card">
@@ -80,37 +83,17 @@
                         <div class="project-header">
                             <i class="far fa-folder-open folder-icon"></i>
                             <div class="project-links">
-                                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                                <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://github.com/hplp/2025-fpga-design-projects-EncryptedRadio" target="_blank"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
-                        <h3 class="project-title">Project Name One</h3>
+                        <h3 class="project-title">AES-128 Encrypted Radio</h3>
                         <p class="project-desc">
-                            A brief description of the project from your Notion page. Explain what it does and the problem it solves.
-                        </p>
-                        <ul class="project-tech">
-                            <li>Tool 1</li>
-                            <li>Tool 2</li>
-                            <li>Tool 3</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-header">
-                            <i class="far fa-folder-open folder-icon"></i>
-                            <div class="project-links">
-                                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">FPGA / Hardware Design</h3>
-                        <p class="project-desc">
-                            Description of a hardware or engineering project. Detail the specific architecture or design challenges overcome.
+                            Designed a secure radio system using PYNQ Z-1 boards. Utilized Vitis HLS to generate hardware IP for an AES-128 encryption module via AXI protocol. Developed C driver code to transmit encrypted messages between boards.
                         </p>
                         <ul class="project-tech">
                             <li>Verilog</li>
-                            <li>Vivado</li>
+                            <li>Vitis HLS</li>
+                            <li>PYNQ Z-1</li>
                             <li>C</li>
                         </ul>
                     </div>
@@ -121,16 +104,78 @@
                         <div class="project-header">
                             <i class="far fa-folder-open folder-icon"></i>
                             <div class="project-links">
-                                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                                <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
-                        <h3 class="project-title">Another Cool Project</h3>
+                        <h3 class="project-title">CNN to SNN Conversion (Akida)</h3>
                         <p class="project-desc">
-                            Short description. Maybe something personal or a hackathon project.
+                            Created and trained a standard CNN on the MNIST dataset and converted it to a Spiking Neural Network (SNN) to benchmark the Akida neuromorphic hardware. Analyzed latency and energy efficiency trade-offs.
                         </p>
                         <ul class="project-tech">
                             <li>Python</li>
-                            <li>TensorFlow</li>
+                            <li>PyTorch</li>
+                            <li>Akida MetaTF</li>
+                            <li>SNN</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Hydraulic Digital Twin</h3>
+                        <p class="project-desc">
+                            Developed a predictive maintenance system for naval hydraulic equipment. Utilized Deep Neural Networks (DNNs) to model system behavior and detect anomalies before critical failure.
+                        </p>
+                        <ul class="project-tech">
+                            <li>Deep Learning</li>
+                            <li>Digital Twins</li>
+                            <li>Python</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Impact of H.265 Codec</h3>
+                        <p class="project-desc">
+                            Authored a technical research paper analyzing the societal and technical impacts of the H.265 video codec, specifically examining its role in enabling the rise of short-form video content platforms.
+                        </p>
+                        <ul class="project-tech">
+                            <li>Video Compression</li>
+                            <li>H.265/HEVC</li>
+                            <li>Research</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">SQLite Performance Benchmark</h3>
+                        <p class="project-desc">
+                            Designed a comprehensive benchmarking plan to compare custom SQLite implementations against standard services. Included automated Python scripts for data analysis and performance visualization.
+                        </p>
+                        <ul class="project-tech">
+                            <li>Python</li>
+                            <li>SQL</li>
+                            <li>Data Analysis</li>
                         </ul>
                     </div>
                 </div>
@@ -141,25 +186,24 @@
 
     <section id="experience" class="section">
         <div class="container">
-            <h2 class="section-title">Where I've Worked</h2>
+            <h2 class="section-title">Experience</h2>
             <div class="jobs-container">
                 
                 <div class="job">
-                    <h3>Position Title <span class="company">@ Company Name</span></h3>
-                    <p class="job-date">Jan 2023 - Present</p>
+                    <h3>Undergraduate Researcher <span class="company">@ University of Virginia</span></h3>
+                    <p class="job-date">2024 - Present</p>
                     <ul class="job-details">
-                        <li>Developed and maintained code for client websites primarily using HTML, CSS, Sass, JavaScript, and jQuery.</li>
-                        <li>Manually tested sites in various browsers and mobile devices to ensure cross-browser compatibility and responsiveness.</li>
-                        <li>Interfaced with clients on a weekly basis, providing technological expertise.</li>
+                        <li>Conducting research on neuromorphic computing architectures and their application in edge AI.</li>
+                        <li>Benchmarking energy consumption of Spiking Neural Networks (SNNs) versus traditional CNNs on dedicated hardware.</li>
                     </ul>
                 </div>
 
                 <div class="job">
-                    <h3>Previous Title <span class="company">@ Previous Company</span></h3>
-                    <p class="job-date">May 2021 - Dec 2022</p>
+                    <h3>Emergency Medical Technician <span class="company">@ CARS</span></h3>
+                    <p class="job-date">Previous</p>
                     <ul class="job-details">
-                        <li>Engineered efficient solutions for...</li>
-                        <li>Collaborated with a team of 5 designers and engineers.</li>
+                        <li>Volunteered as an EMT for the Charlottesville-Albemarle Rescue Squad.</li>
+                        <li>Managed high-pressure medical emergencies and coordinated with hospital staff for patient transfer.</li>
                     </ul>
                 </div>
 
@@ -172,12 +216,12 @@
             <p class="greeting">What's Next?</p>
             <h2 class="section-title">Get In Touch</h2>
             <p class="contact-text">
-                I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                I am actively applying to graduate programs and research opportunities in VLSI and Computer Architecture. I'd love to connect!
             </p>
             <a href="mailto:alex@example.com" class="btn primary">Say Hello</a>
             
             <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="mailto:alex@example.com"><i class="fas fa-envelope"></i></a>
             </div>
