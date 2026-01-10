@@ -271,13 +271,59 @@ ul { list-style: none; }
 }
 
 /* Contact */
-.contact-box {
-    border: var(--border-width) solid var(--border-color);
+/* --- Simplified Contact Styles --- */
+
+.contact-card {
     background: var(--surface-color);
-    padding: 40px;
-    max-width: 600px;
-    margin: 0 auto;
+    border: var(--border-width) solid var(--border-color);
     box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contact-card p {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.email-link {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    text-decoration: none;
+    margin-bottom: 40px;
+}
+
+.email-link:hover {
+    text-decoration: underline;
+    color: var(--text-main);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.social-links a {
+    font-family: var(--font-heading);
+    font-weight: bold;
+    color: var(--text-main);
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
 }
 
 .footer {
