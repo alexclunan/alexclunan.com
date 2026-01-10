@@ -3,870 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SbF5: Superacid Arcade</title>
-    <style>
-        :root {
-            --acid-yellow: #FFD700;
-            --fume-white: #F0F8FF;
-            --corrosive-black: #1a1a1a;
-            --container-gray: #4C4F4D;
-            --danger-red: #FF4500;
-            --success-green: #00FF00;
-            --glow-yellow: rgba(255, 215, 0, 0.5);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--corrosive-black);
-            color: var(--fume-white);
-            font-family: 'Courier New', monospace;
-            margin: 0;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* Fuming Effect Overlay */
-        .fumes {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(255, 255, 255, 0.1) 100%);
-            animation: pulseFume 5s infinite ease-in-out;
-            z-index: 0;
-        }
-
-        @keyframes pulseFume {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
-        /* Header */
-        header {
-            background: repeating-linear-gradient(
-                45deg,
-                var(--acid-yellow),
-                var(--acid-yellow) 10px,
-                var(--corrosive-black) 10px,
-                var(--corrosive-black) 20px
-            );
-            padding: 20px;
-            text-align: center;
-            border-bottom: 4px solid white;
-            position: relative;
-            z-index: 10;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
-        h1 {
-            background: var(--corrosive-black);
-            color: var(--acid-yellow);
-            display: inline-block;
-            padding: 10px 20px;
-            border: 2px solid white;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 5px var(--acid-yellow); }
-            to { text-shadow: 0 0 20px var(--acid-yellow), 0 0 30px var(--acid-yellow); }
-        }
-
-        .warning-text {
-            background-color: white;
-            color: red;
-            font-weight: bold;
-            display: block;
-            margin: 10px auto;
-            max-width: 600px;
-            padding: 5px;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.7; }
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            background: rgba(0,0,0,0.5);
-            padding: 15px;
-            text-align: center;
-            border-bottom: 2px solid var(--acid-yellow);
-            position: relative;
-            z-index: 10;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .stat-item {
-            color: var(--acid-yellow);
-            font-weight: bold;
-        }
-
-        .stat-value {
-            color: var(--success-green);
-            font-size: 1.2em;
-        }
-
-        /* Game Grid */
-        .arcade-cabinet {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .game-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
-            border-color: var(--acid-yellow);
-        }
-
-        .game-card h2 {
-            color: var(--acid-yellow);
-            margin-top: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        button {
-            background: transparent;
-            color: var(--acid-yellow);
-            border: 2px solid var(--acid-yellow);
-            padding: 10px 20px;
-            font-family: inherit;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 5px;
-            transition: all 0.2s;
-            border-radius: 4px;
-            position: relative;
-            z-index: 100;
-        }
-
-        button:hover:not(:disabled) {
-            background: var(--acid-yellow);
-            color: var(--corrosive-black);
-            transform: scale(1.05);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        canvas {
-            background: #000;
-            border: 2px solid var(--container-gray);
-            display: block;
-            margin: 10px auto;
-            image-rendering: pixelated;
-        }
-
-        .score-display {
-            font-size: 1.5em;
-            color: var(--acid-yellow);
-            margin: 10px 0;
-            text-shadow: 0 0 10px var(--glow-yellow);
-        }
-
-        .high-score {
-            color: var(--success-green);
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-
-        #titration-count {
-            font-size: 2em;
-            color: var(--acid-yellow);
-            text-shadow: 0 0 10px var(--glow-yellow);
-            margin: 10px 0;
-        }
-
-        .upgrade-list {
-            text-align: left;
-            margin: 15px 0;
-            font-size: 0.9em;
-        }
-
-        .upgrade-item {
-            padding: 5px;
-            margin: 5px 0;
-            background: rgba(255,255,255,0.05);
-            border-left: 3px solid var(--acid-yellow);
-            padding-left: 10px;
-        }
-
-        #reaction-box {
-            width: 100%;
-            height: 100px;
-            background: #333;
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--container-gray);
-            border-radius: 4px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        #reaction-box:hover {
-            border-color: var(--acid-yellow);
-        }
-
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .memory-card {
-            aspect-ratio: 1;
-            background: var(--container-gray);
-            border: 2px solid var(--acid-yellow);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            transition: all 0.3s;
-            border-radius: 4px;
-        }
-
-        .memory-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px var(--acid-yellow);
-        }
-
-        .memory-card.flipped {
-            background: var(--acid-yellow);
-            color: var(--corrosive-black);
-        }
-
-        .memory-card.matched {
-            background: var(--success-green);
-            border-color: var(--success-green);
-            cursor: default;
-        }
-
-        #ph-meter {
-            width: 100%;
-            height: 60px;
-            background: linear-gradient(to right, #0000FF, #00FFFF, #00FF00, #FFFF00, #FF0000);
-            margin: 15px 0;
-            border: 2px solid white;
-            position: relative;
-            border-radius: 4px;
-        }
-
-        #ph-indicator {
-            position: absolute;
-            top: -5px;
-            width: 10px;
-            height: 70px;
-            background: white;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 2px solid black;
-        }
-
-        #ph-value {
-            font-size: 2em;
-            color: var(--acid-yellow);
-            margin: 10px 0;
-        }
-
-        @media (max-width: 768px) {
-            .arcade-cabinet {
-                grid-template-columns: 1fr;
-                padding: 20px;
-            }
-        }
-    </style>
+    <title>Alex Clunan | Portfolio</title>
+    <meta name="description" content="Portfolio of Alex Clunan - Engineering & Development">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="fumes"></div>
 
-    <header>
-        <h1>SbF<sub>5</sub> Protocol</h1>
-        <div class="warning-text">⚠ DANGER: HIGHLY REACTIVE LEWIS SUPERACID ⚠</div>
-        <p>Do not expose to moisture. Reacts violently with boredom.</p>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Alex Clunan<span class="dot">.</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-content">
+            <p class="greeting">Hi, my name is</p>
+            <h1>Alex Clunan.</h1>
+            <h2 class="subtitle">I build systems and solve problems.</h2>
+            <p class="hero-text">
+                I am a passionate engineer and developer. I specialize in turning complex problems into elegant solutions, with a focus on [Insert Key Skill from Notion, e.g., FPGA Design, Software Development].
+            </p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn primary">View My Work</a>
+                <a href="#contact" class="btn secondary">Get In Touch</a>
+            </div>
+        </div>
     </header>
 
-    <div class="stats-bar">
-        <div class="stat-item">
-            Total Games: <span class="stat-value" id="totalGames">0</span>
-        </div>
-        <div class="stat-item">
-            Total Score: <span class="stat-value" id="totalScore">0</span>
-        </div>
-        <div class="stat-item">
-            Best Reaction: <span class="stat-value" id="bestReaction">--</span>ms
-        </div>
-    </div>
-
-    <div class="arcade-cabinet">
-        <!-- Game 1: Snake -->
-        <div class="game-card">
-            <h2>Fluorine Polymer Chain</h2>
-            <p>Bind the free radicals. Use arrow keys to navigate. Avoid walls and yourself!</p>
-            <canvas id="snakeCanvas" width="300" height="300"></canvas>
-            <button id="startSnakeBtn">Synthesize (Start)</button>
-            <button id="pauseSnakeBtn">Pause</button>
-            <div class="score-display">
-                <div id="snakeScore">Mass: 0 u</div>
-                <div class="high-score">High Score: <span id="snakeHighScore">0</span> u</div>
-            </div>
-        </div>
-
-        <!-- Game 2: Clicker -->
-        <div class="game-card">
-            <h2>Titration Clicker</h2>
-            <p>Add drops of SbF5 to dissolve the substrate. Buy upgrades to automate!</p>
-            <div id="titration-count">0.0 mL</div>
-            <button id="dripAcidBtn">Add Drop (+1mL)</button>
-            <div class="upgrade-list" id="upgradeList"></div>
-        </div>
-
-        <!-- Game 3: Reaction Time -->
-        <div class="game-card">
-            <h2>Proton Exchange</h2>
-            <p>Wait for the solution to turn YELLOW, then click as fast as possible!</p>
-            <div id="reaction-box">
-                <span id="reaction-text">Click Initialize to Start</span>
-            </div>
-            <button id="startReactionBtn">Initialize</button>
-            <div class="score-display">
-                <div id="reactionScore">Last: --</div>
-                <div class="high-score">Best: <span id="reactionHighScore">--</span>ms</div>
-            </div>
-        </div>
-
-        <!-- Game 4: Memory -->
-        <div class="game-card">
-            <h2>Molecular Memory</h2>
-            <p>Match the molecular structures! Find all pairs to complete the reaction.</p>
-            <div class="memory-grid" id="memoryGrid"></div>
-            <button id="startMemoryBtn">New Reaction</button>
-            <div class="score-display">
-                <div id="memoryScore">Moves: 0</div>
-                <div class="high-score">Best: <span id="memoryHighScore">--</span> moves</div>
-            </div>
-        </div>
-
-        <!-- Game 5: Falling Blocks -->
-        <div class="game-card">
-            <h2>Precipitation Reaction</h2>
-            <p>Control the falling ions. Click columns to remove blocks!</p>
-            <canvas id="fallingCanvas" width="300" height="400"></canvas>
-            <button id="startFallingBtn">Start Precipitation</button>
-            <div class="score-display">
-                <div id="fallingScore">Score: 0</div>
-                <div class="high-score">High Score: <span id="fallingHighScore">0</span></div>
-            </div>
-        </div>
-
-        <!-- Game 6: pH Balance -->
-        <div class="game-card">
-            <h2>Acid-Base Balance</h2>
-            <p>Keep the pH balanced! The longer you stay balanced, the higher your score!</p>
-            <div id="ph-meter">
-                <div id="ph-indicator"></div>
-            </div>
-            <div id="ph-value">pH: 7.0</div>
-            <button id="startPHBtn">Start Balancing</button>
-            <div class="score-display">
-                <div id="phScore">Balance Time: 0s</div>
-                <div class="high-score">Best: <span id="phHighScore">0</span>s</div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // ===== STORAGE & STATS =====
-        function loadStats() {
-            const stats = JSON.parse(localStorage.getItem('sbF5Stats') || '{}');
-            return {
-                totalGames: stats.totalGames || 0,
-                totalScore: stats.totalScore || 0,
-                bestReaction: stats.bestReaction || null,
-                snakeHighScore: stats.snakeHighScore || 0,
-                clickerTotal: stats.clickerTotal || 0,
-                memoryBest: stats.memoryBest || null,
-                fallingHighScore: stats.fallingHighScore || 0,
-                phBest: stats.phBest || 0
-            };
-        }
-
-        function saveStats(stats) {
-            localStorage.setItem('sbF5Stats', JSON.stringify(stats));
-            updateStatsDisplay();
-        }
-
-        function updateStatsDisplay() {
-            const stats = loadStats();
-            document.getElementById('totalGames').textContent = stats.totalGames;
-            document.getElementById('totalScore').textContent = stats.totalScore;
-            document.getElementById('bestReaction').textContent = stats.bestReaction || '--';
-            document.getElementById('snakeHighScore').textContent = stats.snakeHighScore;
-            document.getElementById('reactionHighScore').textContent = stats.bestReaction || '--';
-            document.getElementById('memoryHighScore').textContent = stats.memoryBest || '--';
-            document.getElementById('fallingHighScore').textContent = stats.fallingHighScore;
-            document.getElementById('phHighScore').textContent = stats.phBest;
-        }
-
-        // ===== GAME 1: SNAKE =====
-        const snakeCanvas = document.getElementById('snakeCanvas');
-        const snakeCtx = snakeCanvas.getContext('2d');
-        const gridSize = 20;
-        const tileSize = snakeCanvas.width / gridSize;
-        let snake = [{x: 10, y: 10}];
-        let food = {x: 15, y: 15};
-        let dx = 0, dy = 0;
-        let snakeScore = 0;
-        let snakeGameLoop;
-        let isPaused = false;
-        let isRunning = false;
-
-        function startSnake() {
-            if (isRunning) return;
-            snake = [{x: 10, y: 10}];
-            dx = 1; dy = 0; snakeScore = 0;
-            isPaused = false;
-            isRunning = true;
-            clearInterval(snakeGameLoop);
-            snakeGameLoop = setInterval(updateSnake, 120);
-            updateSnakeScore();
-            const stats = loadStats();
-            stats.totalGames++;
-            saveStats(stats);
-        }
-
-        function pauseSnake() {
-            if (!isRunning) return;
-            isPaused = !isPaused;
-            document.getElementById('pauseSnakeBtn').textContent = isPaused ? 'Resume' : 'Pause';
-            if (isPaused) {
-                clearInterval(snakeGameLoop);
-            } else {
-                snakeGameLoop = setInterval(updateSnake, 120);
-            }
-        }
-
-        function changeDirection(event) {
-            if (isPaused) return;
-            const key = event.keyCode;
-            if (key === 37 && dx !== 1) { dx = -1; dy = 0; }
-            if (key === 38 && dy !== 1) { dx = 0; dy = -1; }
-            if (key === 39 && dx !== -1) { dx = 1; dy = 0; }
-            if (key === 40 && dy !== -1) { dx = 0; dy = 1; }
-        }
-
-        function updateSnake() {
-            if (isPaused) return;
-            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-            if (snake.some(part => part.x === head.x && part.y === head.y)) {
-                endSnake();
-                return;
-            }
-            snake.unshift(head);
-            if (head.x === food.x && head.y === food.y) {
-                snakeScore += 10;
-                updateSnakeScore();
-                do {
-                    food = {x: Math.floor(Math.random()*gridSize), y: Math.floor(Math.random()*gridSize)};
-                } while (snake.some(part => part.x === food.x && part.y === food.y));
-                const stats = loadStats();
-                stats.totalScore += 10;
-                if (snakeScore > stats.snakeHighScore) stats.snakeHighScore = snakeScore;
-                saveStats(stats);
-            } else {
-                snake.pop();
-            }
-            if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
-                endSnake();
-                return;
-            }
-            snakeCtx.fillStyle = '#000';
-            snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
-            snakeCtx.strokeStyle = '#222';
-            for (let i = 0; i <= gridSize; i++) {
-                snakeCtx.beginPath();
-                snakeCtx.moveTo(i * tileSize, 0);
-                snakeCtx.lineTo(i * tileSize, snakeCanvas.height);
-                snakeCtx.stroke();
-                snakeCtx.beginPath();
-                snakeCtx.moveTo(0, i * tileSize);
-                snakeCtx.lineTo(snakeCanvas.width, i * tileSize);
-                snakeCtx.stroke();
-            }
-            snake.forEach((part, i) => {
-                snakeCtx.fillStyle = i === 0 ? '#00FF00' : '#00CC00';
-                snakeCtx.fillRect(part.x * tileSize + 1, part.y * tileSize + 1, tileSize - 2, tileSize - 2);
-            });
-            snakeCtx.fillStyle = '#FFD700';
-            snakeCtx.fillRect(food.x * tileSize + 2, food.y * tileSize + 2, tileSize - 4, tileSize - 4);
-        }
-
-        function updateSnakeScore() {
-            document.getElementById('snakeScore').textContent = 'Mass: ' + snakeScore + ' u';
-        }
-
-        function endSnake() {
-            clearInterval(snakeGameLoop);
-            isRunning = false;
-            document.getElementById('pauseSnakeBtn').textContent = 'Pause';
-            alert("Containment Breach! Final Mass: " + snakeScore + " u");
-        }
-
-        document.getElementById('startSnakeBtn').addEventListener('click', startSnake);
-        document.getElementById('pauseSnakeBtn').addEventListener('click', pauseSnake);
-        document.addEventListener('keydown', changeDirection);
-
-        // ===== GAME 2: CLICKER =====
-        let volume = parseFloat(localStorage.getItem('clickerVolume') || '0');
-        let autoClickers = JSON.parse(localStorage.getItem('clickerUpgrades') || '[]');
-        const upgrades = [
-            { id: 'pipette', name: 'Pipette', cost: 10, rate: 1 },
-            { id: 'burette', name: 'Burette', cost: 50, rate: 2 },
-            { id: 'autotitrator', name: 'Auto-Titrator', cost: 200, rate: 5 },
-            { id: 'reactor', name: 'Reactor', cost: 1000, rate: 10 }
-        ];
-
-        function dripAcid() {
-            volume += 1;
-            updateTitrationUI();
-            const stats = loadStats();
-            stats.totalScore += 1;
-            stats.clickerTotal += 1;
-            saveStats(stats);
-        }
-
-        function buyUpgrade(upgradeId) {
-            const upgrade = upgrades.find(u => u.id === upgradeId);
-            if (!upgrade || volume < upgrade.cost) return;
-            volume -= upgrade.cost;
-            autoClickers.push(upgradeId);
-            localStorage.setItem('clickerVolume', volume.toString());
-            localStorage.setItem('clickerUpgrades', JSON.stringify(autoClickers));
-            setInterval(() => {
-                volume += upgrade.rate;
-                updateTitrationUI();
-                const stats = loadStats();
-                stats.totalScore += upgrade.rate;
-                stats.clickerTotal += upgrade.rate;
-                saveStats(stats);
-            }, 1000);
-            updateTitrationUI();
-        }
-
-        function updateTitrationUI() {
-            document.getElementById('titration-count').textContent = volume.toFixed(1) + " mL";
-            localStorage.setItem('clickerVolume', volume.toString());
-            const list = document.getElementById('upgradeList');
-            list.innerHTML = upgrades.map(upgrade => {
-                const owned = autoClickers.filter(id => id === upgrade.id).length;
-                const canAfford = volume >= upgrade.cost;
-                return `
-                    <div class="upgrade-item">
-                        <strong>${upgrade.name}</strong> (Owned: ${owned})<br>
-                        Cost: ${upgrade.cost}mL | Rate: +${upgrade.rate}mL/s
-                        <button data-upgrade-id="${upgrade.id}" ${!canAfford ? 'disabled' : ''} style="float: right; margin: 0; padding: 5px 10px; font-size: 0.8em;">
-                            Buy
-                        </button>
-                    </div>
-                `;
-            }).join('');
-            list.querySelectorAll('button[data-upgrade-id]').forEach(btn => {
-                btn.addEventListener('click', () => buyUpgrade(btn.getAttribute('data-upgrade-id')));
-            });
-        }
-
-        document.getElementById('dripAcidBtn').addEventListener('click', dripAcid);
-        autoClickers.forEach(id => {
-            const upgrade = upgrades.find(u => u.id === id);
-            if (upgrade) {
-                setInterval(() => {
-                    volume += upgrade.rate;
-                    updateTitrationUI();
-                    const stats = loadStats();
-                    stats.totalScore += upgrade.rate;
-                    stats.clickerTotal += upgrade.rate;
-                    saveStats(stats);
-                }, 1000);
-            }
-        });
-
-        // ===== GAME 3: REACTION TIME =====
-        const rBox = document.getElementById('reaction-box');
-        const rText = document.getElementById('reaction-text');
-        let reactionStartTime = 0;
-        let isWaiting = false;
-
-        function startReaction() {
-            if (isWaiting) return;
-            isWaiting = true;
-            rBox.style.background = '#333';
-            rText.innerText = "Wait for YELLOW...";
-            rText.style.color = 'white';
-            rBox.onclick = null;
-            const randomDelay = Math.floor(Math.random() * 4000) + 1500;
-            setTimeout(() => {
-                rBox.style.background = '#FFD700';
-                rText.innerText = "CLICK NOW!";
-                rText.style.color = 'black';
-                reactionStartTime = Date.now();
-                rBox.onclick = endReaction;
-            }, randomDelay);
-        }
-
-        function endReaction() {
-            if (!isWaiting || !reactionStartTime) return;
-            const time = Date.now() - reactionStartTime;
-            rText.innerText = `Reaction Time: ${time}ms`;
-            rText.style.color = 'white';
-            rBox.style.background = time < 200 ? '#00FF00' : time < 400 ? '#90EE90' : '#FFA500';
-            rBox.onclick = null;
-            isWaiting = false;
-            document.getElementById('reactionScore').textContent = `Last: ${time}ms`;
-            const stats = loadStats();
-            stats.totalGames++;
-            if (!stats.bestReaction || time < stats.bestReaction) stats.bestReaction = time;
-            saveStats(stats);
-            setTimeout(() => {
-                rText.innerText = "Click Initialize to Start";
-                rBox.style.background = '#333';
-            }, 2000);
-        }
-
-        document.getElementById('startReactionBtn').addEventListener('click', startReaction);
-
-        // ===== GAME 4: MEMORY =====
-        const symbols = ['H', 'O', 'C', 'N', 'F', 'S', 'Cl', 'Br'];
-        let memoryCards = [];
-        let flippedCards = [];
-        let moves = 0;
-        let matchedPairs = 0;
-
-        function startMemoryGame() {
-            moves = 0;
-            matchedPairs = 0;
-            flippedCards = [];
-            memoryCards = [];
-            const pairs = [...symbols, ...symbols];
-            for (let i = pairs.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
-            }
-            memoryCards = pairs.map((symbol, index) => ({
-                id: index,
-                symbol: symbol,
-                flipped: false,
-                matched: false
-            }));
-            renderMemoryGame();
-        }
-
-        function renderMemoryGame() {
-            const grid = document.getElementById('memoryGrid');
-            grid.innerHTML = memoryCards.map(card => `
-                <div class="memory-card ${card.flipped ? 'flipped' : ''} ${card.matched ? 'matched' : ''}" 
-                     data-card-id="${card.id}" 
-                     style="cursor: ${card.matched ? 'default' : 'pointer'}">
-                    ${card.flipped || card.matched ? card.symbol : '?'}
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        Hello! I'm Alex, based in [Location]. I enjoy creating things that live on the internet and in hardware. My interest in engineering started when...
+                    </p>
+                    <p>
+                        Fast-forward to today, and I've had the privilege of working on [mention interesting projects]. My main focus these days is building accessible, inclusive products and digital experiences.
+                    </p>
+                    <ul class="skills-list">
+                        <li>Python</li>
+                        <li>C++</li>
+                        <li>Verilog / FPGA</li>
+                        <li>Git & GitHub</li>
+                        <li>System Design</li>
+                        <li>Web Technologies</li>
+                    </ul>
                 </div>
-            `).join('');
-            grid.querySelectorAll('.memory-card:not(.matched)').forEach(card => {
-                card.addEventListener('click', () => flipCard(parseInt(card.getAttribute('data-card-id'))));
-            });
-        }
+                <div class="about-img">
+                    <div class="img-wrapper">
+                        <img src="https://via.placeholder.com/300" alt="Alex Clunan">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        function flipCard(id) {
-            const card = memoryCards[id];
-            if (card.flipped || card.matched || flippedCards.length >= 2) return;
-            card.flipped = true;
-            flippedCards.push(card);
-            renderMemoryGame();
-            if (flippedCards.length === 2) {
-                moves++;
-                document.getElementById('memoryScore').textContent = `Moves: ${moves}`;
-                setTimeout(() => {
-                    if (flippedCards[0].symbol === flippedCards[1].symbol) {
-                        flippedCards[0].matched = true;
-                        flippedCards[1].matched = true;
-                        matchedPairs++;
-                        if (matchedPairs === symbols.length) {
-                            const stats = loadStats();
-                            stats.totalGames++;
-                            if (!stats.memoryBest || moves < stats.memoryBest) stats.memoryBest = moves;
-                            saveStats(stats);
-                            alert(`Reaction Complete! You matched all pairs in ${moves} moves!`);
-                        }
-                    } else {
-                        flippedCards[0].flipped = false;
-                        flippedCards[1].flipped = false;
-                    }
-                    flippedCards = [];
-                    renderMemoryGame();
-                }, 1000);
-            }
-        }
+    <section id="projects" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Some Things I've Built</h2>
+            <div class="projects-grid">
+                
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                                <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Project Name One</h3>
+                        <p class="project-desc">
+                            A brief description of the project from your Notion page. Explain what it does and the problem it solves.
+                        </p>
+                        <ul class="project-tech">
+                            <li>Tool 1</li>
+                            <li>Tool 2</li>
+                            <li>Tool 3</li>
+                        </ul>
+                    </div>
+                </div>
 
-        document.getElementById('startMemoryBtn').addEventListener('click', startMemoryGame);
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">FPGA / Hardware Design</h3>
+                        <p class="project-desc">
+                            Description of a hardware or engineering project. Detail the specific architecture or design challenges overcome.
+                        </p>
+                        <ul class="project-tech">
+                            <li>Verilog</li>
+                            <li>Vivado</li>
+                            <li>C</li>
+                        </ul>
+                    </div>
+                </div>
 
-        // ===== GAME 5: FALLING BLOCKS =====
-        const fallingCanvas = document.getElementById('fallingCanvas');
-        const fallingCtx = fallingCanvas.getContext('2d');
-        const blockSize = 30;
-        const cols = Math.floor(fallingCanvas.width / blockSize);
-        let fallingBlocks = [];
-        let fallingScore = 0;
-        let fallingGameRunning = false;
-        let fallingGameLoop;
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Another Cool Project</h3>
+                        <p class="project-desc">
+                            Short description. Maybe something personal or a hackathon project.
+                        </p>
+                        <ul class="project-tech">
+                            <li>Python</li>
+                            <li>TensorFlow</li>
+                        </ul>
+                    </div>
+                </div>
 
-        function startFallingGame() {
-            fallingBlocks = [];
-            fallingScore = 0;
-            fallingGameRunning = true;
-            fallingCanvas.onclick = handleFallingClick;
-            fallingGameLoop = setInterval(updateFallingGame, 50);
-            updateFallingScore();
-        }
+            </div>
+        </div>
+    </section>
 
-        function updateFallingGame() {
-            if (Math.random() < 0.1) {
-                fallingBlocks.push({
-                    x: Math.floor(Math.random() * cols) * blockSize,
-                    y: -blockSize,
-                    color: ['#FFD700', '#00FF00', '#FF4500', '#00FFFF'][Math.floor(Math.random() * 4)],
-                    speed: 2 + Math.random() * 2
-                });
-            }
-            fallingBlocks = fallingBlocks.filter(block => {
-                block.y += block.speed;
-                return block.y < fallingCanvas.height;
-            });
-            fallingCtx.fillStyle = '#000';
-            fallingCtx.fillRect(0, 0, fallingCanvas.width, fallingCanvas.height);
-            fallingBlocks.forEach(block => {
-                fallingCtx.fillStyle = block.color;
-                fallingCtx.fillRect(block.x, block.y, blockSize - 2, blockSize - 2);
-            });
-            updateFallingScore();
-            if (fallingBlocks.some(b => b.y >= fallingCanvas.height - blockSize)) {
-                endFallingGame();
-            }
-        }
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">Where I've Worked</h2>
+            <div class="jobs-container">
+                
+                <div class="job">
+                    <h3>Position Title <span class="company">@ Company Name</span></h3>
+                    <p class="job-date">Jan 2023 - Present</p>
+                    <ul class="job-details">
+                        <li>Developed and maintained code for client websites primarily using HTML, CSS, Sass, JavaScript, and jQuery.</li>
+                        <li>Manually tested sites in various browsers and mobile devices to ensure cross-browser compatibility and responsiveness.</li>
+                        <li>Interfaced with clients on a weekly basis, providing technological expertise.</li>
+                    </ul>
+                </div>
 
-        function handleFallingClick(e) {
-            const rect = fallingCanvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const col = Math.floor(x / blockSize);
-            fallingBlocks = fallingBlocks.filter(block => {
-                const blockCol = Math.floor(block.x / blockSize);
-                return blockCol !== col;
-            });
-            fallingScore += 10;
-        }
+                <div class="job">
+                    <h3>Previous Title <span class="company">@ Previous Company</span></h3>
+                    <p class="job-date">May 2021 - Dec 2022</p>
+                    <ul class="job-details">
+                        <li>Engineered efficient solutions for...</li>
+                        <li>Collaborated with a team of 5 designers and engineers.</li>
+                    </ul>
+                </div>
 
-        function updateFallingScore() {
-            document.getElementById('fallingScore').textContent = `Score: ${fallingScore}`;
-            const stats = loadStats();
-            if (fallingScore > stats.fallingHighScore) {
-                stats.fallingHighScore = fallingScore;
-                saveStats(stats);
-            }
-        }
+            </div>
+        </div>
+    </section>
 
-        function endFallingGame() {
-            clearInterval(fallingGameLoop);
-            fallingGameRunning = false;
-            fallingCanvas.onclick = null;
-            const stats = loadStats();
-            stats.totalGames++;
-            saveStats(stats);
-            alert(`Precipitation Complete! Final Score: ${fallingScore}`);
-        }
+    <section id="contact" class="section text-center">
+        <div class="container">
+            <p class="greeting">What's Next?</p>
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="contact-text">
+                I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+            <a href="mailto:alex@example.com" class="btn primary">Say Hello</a>
+            
+            <div class="social-links">
+                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:alex@example.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </section>
 
-        document.getElementById('startFallingBtn').addEventListener('click', startFallingGame);
+    <footer class="footer">
+        <p>Designed & Built by Alex Clunan</p>
+    </footer>
 
-        // ===== GAME 6: pH BALANCE =====
-        let phValue = 7.0;
-        let phDirection = 1;
-        let phGameRunning = false;
-        let phGameLoop;
-        let phBalanceTime = 0;
-        let phStartTime = 0;
-
-        function startPHGame() {
-            phValue = 7.0;
-            phDirection = Math.random() < 0.5 ? -1 : 1;
-            phGameRunning = true;
-            phBalanceTime = 0;
-            phStartTime = Date.now();
-            phGameLoop = setInterval(updatePHGame, 100);
-        }
-
-        function updatePHGame() {
-            if (!phGameRunning) return;
-            phValue += (Math.random() - 0.5) * 0.5 * phDirection;
-            phValue = Math.max(0, Math.min(14, phValue));
-            const indicator = document.getElementById('ph-indicator');
-            const percent = (phValue / 14) * 100;
-            indicator.style.left = percent + '%';
-            const phDisplay = document.getElementById('ph-value');
-            phDisplay.textContent = `pH: ${phValue.toFixed(1)}`;
-            if (phValue < 3) phDisplay.style.color = '#FF0000';
-            else if (phValue < 6) phDisplay.style.color = '#FFA500';
-            else if (phValue < 8) phDisplay.style.color = '#00FF00';
-            else if (phValue < 11) phDisplay.style.color = '#00FFFF';
-            else phDisplay.style.color = '#0000FF';
-            if (phValue >= 6.5 && phValue <= 7.5) {
-                phBalanceTime = (Date.now() - phStartTime) / 1000;
-                document.getElementById('phScore').textContent = `Balance Time: ${phBalanceTime.toFixed(1)}s`;
-                const stats = loadStats();
-                if (phBalanceTime > stats.phBest) {
-                    stats.phBest = phBalanceTime;
-                    saveStats(stats);
-                }
-            } else {
-                phStartTime = Date.now();
-            }
-            if (Math.random() < 0.02) phDirection *= -1;
-        }
-
-        document.getElementById('startPHBtn').addEventListener('click', startPHGame);
-
-        // Initialize
-        updateStatsDisplay();
-        updateTitrationUI();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
