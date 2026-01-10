@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Clunan | Engineer</title>
-    <meta name="description" content="Portfolio of Alex Clunan - Electrical Engineer & Hardware Designer">
+    <title>Alex Clunan | Electrical Engineer</title>
+    <meta name="description" content="Engineering Portfolio of Alex Clunan - VLSI, FPGA, & Embedded Systems">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -12,50 +12,53 @@
 
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">Start / Alex Clunan</a>
+            <a href="#" class="logo">Alex Clunan // Portfolio</a>
             <ul class="nav-links">
-                <li><a href="#about"><u>A</u>bout</a></li>
-                <li><a href="#experience"><u>E</u>xperience</a></li>
-                <li><a href="#projects"><u>P</u>rojects</a></li>
-                <li><a href="resume.pdf" target="_blank"><u>R</u>esume</a></li>
+                <li><a href="#about">BACKGROUND</a></li>
+                <li><a href="#projects">PROJECTS</a></li>
+                <li><a href="#experience">EXPERIENCE</a></li>
+                <li><a href="resume.pdf" target="_blank">RESUME</a></li>
             </ul>
         </div>
     </nav>
 
     <header class="hero">
         <div class="container hero-content">
-            <p class="greeting">C:\Users\Alex></p>
+            <span class="label">/// PORTFOLIO</span>
             <h1>ALEX CLUNAN</h1>
-            <h2 class="subtitle">Hardware Design & Architecture</h2>
-            <p class="hero-text">
-                Electrical Engineering student at the University of Virginia (GPA 3.94). Specializing in VLSI, FPGA, and Embedded Systems.
+            <h2 class="subtitle">Hardware Design, VLSI & Embedded Systems</h2>
+            <p>
+                Electrical Engineering student at the <strong>University of Virginia (GPA 3.94)</strong>. Specializing in hardware design, computer architecture, and embedded systems. 
             </p>
-            <div class="cta-buttons">
-                <a href="#projects" class="btn primary">View Projects</a>
-                <a href="resume.pdf" target="_blank" class="btn secondary"><i class="fas fa-file-pdf"></i> Resume.pdf</a>
+            <div style="margin-top: 30px;">
+                <a href="#projects" class="btn primary">TECHNICAL PROJECTS</a>
+                <a href="resume.pdf" target="_blank" class="btn">VIEW RESUME</a>
             </div>
         </div>
     </header>
 
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title">System Properties: About Me</h2>
+            <h2>01 // Background</h2>
             <div class="about-grid">
                 <div class="about-text">
                     <p>
-                        I am currently a senior at the <strong>University of Virginia</strong>, pursuing a B.S. in Electrical Engineering (May 2026).
+                        I am a senior Electrical Engineering student with a focus on <strong>VLSI</strong>, <strong>Computer Hardware Design</strong>, and <strong>Embedded Systems</strong>. 
                     </p>
                     <p>
-                        My background combines low-level hardware design (Custom SRAM, RISC-V) with high-level software engineering (C++ STL allocators). I serve as a <strong>Head Teaching Assistant</strong> for Applied Physics and have experience as an <strong>EMT</strong> and Audio Engineer.
+                        Currently, I serve as a <strong>Head Teaching Assistant</strong> for Applied Physics (Electricity and Magnitism), leading a team of 15 TAs. My background is multidisciplinary, including software engineering at <strong>Ultrata LLC</strong>, Emergency Medical Technician (EMT) on an ambulance at the Charlottesville Albemarle Rescue Squad, and the bassist / keyboardist / audio engineer of my rock band.
                     </p>
-                    <ul class="skills-list">
-                        <li>Verilog / SystemVerilog</li>
-                        <li>C / C++ / Linux</li>
-                        <li>Cadence Virtuoso</li>
-                        <li>Vivado / Vitis</li>
-                        <li>Python (PyTorch)</li>
-                        <li>MATLAB</li>
-                    </ul>
+                    <div class="skills-container">
+                        <span class="label" style="color:black; margin-bottom:10px;">CORE COMPETENCIES</span>
+                        <ul class="skills-list">
+                            <li>Verilog / SystemVerilog</li>
+                            <li>C / C++ / Assembly</li>
+                            <li>Cadence Virtuoso / SPICE Simulations</li>
+                            <li>Xilinx Vivado / Vitis HLS</li>
+                            <li>Python (ML/NumPy/Matplotlib/Pandas)</li>
+                            <li>Linux / Low Level Debugging</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="about-img">
                     <div class="img-wrapper">
@@ -66,148 +69,191 @@
         </div>
     </section>
 
-    <section id="experience" class="section">
+    <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title">Work Experience.exe</h2>
-            <div class="jobs-container">
+            <h2>02 // Technical Projects</h2>
+            <div class="projects-grid">
                 
-                <div class="job">
-                    <h3>Software Engineering Intern <span class="company">@ Ultrata LLC</span></h3>
-                    <p class="job-date">June 2025 - Present | Remote</p>
-                    <ul>
-                        <li>Developed a functional Linux FUSE filesystem in C/C++ for Intelligent Memory Fabric (IMF).</li>
-                        <li>Modified C standard library and created C++ allocators for STL Vector compatibility.</li>
-                        <li>Benchmarked Ultrata S3 interface vs. MinIO performance.</li>
-                    </ul>
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">HIGH-SPEED 64KB SRAM</span>
+                        <div class="project-links">
+                            <a href="vlsi_report.pdf" target="_blank" title="Read Technical Report"><i class="fas fa-file-pdf"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-desc">
+                            Designed a custom 64kb SRAM array in <strong>FreePDK 45nm</strong> using Cadence Virtuoso. Implemented a highly optimized 6T bitcell, compared sense amplifiers, decoders, gate sizes, and array dimensions, and utilized dynamic wordline voltages to optimize for the (ActiveEnergyPerAccess)*Delay^2*Area*IdlePower metric.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-label">TECHNOLOGIES</span>
+                            <ul class="project-tech">
+                                <li>Cadence Virtuoso</li>
+                                <li>FreePDK45</li>
+                                <li>SPICE Simulation</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="job">
-                    <h3>Undergraduate Researcher <span class="company">@ Swami Lab (UVa)</span></h3>
-                    <p class="job-date">Jan 2025 - Present</p>
-                    <ul>
-                        <li>Developing low-latency (<70 ms) Raspberry Pi system for cell sorting via impedance signals.</li>
-                        <li>Achieved <1 ms timing variation for valve triggers.</li>
-                    </ul>
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">AES-128 ENCRYPTED RADIO</span>
+                        <div class="project-links">
+                            <a href="https://github.com/hplp/2025-fpga-design-projects-EncryptedRadio" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-desc">
+                            Engineered a secure two-way radio system on PYNQ-Z1 boards. Used <strong>Vitis HLS</strong> to generate hardware IP for an AES-128 encryption module interacting via AXI protocol. 
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-label">TECHNOLOGIES</span>
+                            <ul class="project-tech">
+                                <li>Xilinx Tools</li>
+                                <li>FPGA</li>
+                                <li>PYNQ-Z1</li>
+                                <li>C Driver Dev</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="job">
-                    <h3>NREIP Intern <span class="company">@ NSWC Philadelphia</span></h3>
-                    <p class="job-date">Oct 2025 - Dec 2025</p>
-                    <ul>
-                        <li>Authored whitepaper on Condition Based Maintenance for naval hydraulic systems using AI.</li>
-                    </ul>
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">NEUROMORPHIC SNN ANALYSIS</span>
+                        <div class="project-links">
+                            <a href="https://github.com/Mircea-s-classes/ai-hardware-project-proposal-antimony-pentafluoride-enjoyers/tree/main" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-desc">
+                            Created and trained a Convolutional Neural Network (CNN) Model for MNIST Image identification. Converted a the CNN to a Spiking Neural Network (SNN) for Brainchip Akida Hardware. Benchmarked inference latency, energy efficiency, and model accuracy on the <strong>Akida PCIe Board</strong> vs. an Intel i7-8700k CPU.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-label">TECHNOLOGIES</span>
+                            <ul class="project-tech">
+                                <li>Python (TensorFlow)</li>
+                                <li>Akida SDK</li>
+                                <li>Machine Learning</li>
+                                <li>Neuromorphic Hardware</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="job">
-                    <h3>Head Teaching Assistant <span class="company">@ University of Virginia</span></h3>
-                    <p class="job-date">Aug 2023 - Present</p>
-                    <ul>
-                        <li>Manage 15 TAs for Applied Physics (480+ students). Nominated for Best ECE TA Award.</li>
-                    </ul>
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">Ultrata Custom FUSE FILESYSTEM</span>
+                        <div class="project-links">
+                            </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-desc">
+                            Developed a fully functional Linux FUSE filesystem from scratch to interface with the Intelligent Memory Fabric (IMF). Implemented over 30 functions and ensured compatibility with Ultrata's memory fabric through debugging in gdb.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-label">TECHNOLOGIES</span>
+                            <ul class="project-tech">
+                                <li>C / C++</li>
+                                <li>Linux Kernel/FUSE</li>
+                                <li>Memory Systems</li>
+                                <li>gdb debugger</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">RISC-V CPU & UART Transceiver</span>
+                        <div class="project-links">
+                            <a href="https://github.com/alexclunan/RISCV_CPU" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-desc">
+                            Constructed a soft-core RISC-V CPU supporting arithmetic, logic, memory, and branch instructions. Integrated a UART transceiver and verified via ModelSim testbenches.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-label">TECHNOLOGIES</span>
+                            <ul class="project-tech">
+                                <li>Verilog</li>
+                                <li>Computer Architecture</li>
+                                <li>ModelSim</li>
+                                <li>Assembly</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">FPGA AUDIO SYNTHESIZER</span>
+                        <div class="project-links">
+                            <a href="https://github.com/alexclunan/FPGA_Synth" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-desc">
+                            Designed a hardware synthesizer featuring an LFO, mixer, and a custom delta-sigma 1-bit DAC output. Implemented entirely in Verilog.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-label">TECHNOLOGIES</span>
+                            <ul class="project-tech">
+                                <li>Verilog</li>
+                                <li>DSP</li>
+                                <li>Music</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <section id="projects" class="section">
+    <section id="experience" class="section">
         <div class="container">
-            <h2 class="section-title">My Documents / Projects</h2>
-            <div class="projects-grid">
+            <h2>03 // Professional Experience</h2>
+            <div class="jobs-container">
                 
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-title">VLSI_SRAM_Cache.sch</span>
-                        <div class="project-links">
-                            <a href="vlsi_report.pdf" target="_blank" title="Read Report"><i class="fas fa-file-pdf"></i> PDF</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-desc">
-                            Designed a custom 64kb SRAM array in FreePDK 45nm using Cadence Virtuoso. Features 6T bitcells, Strongarm sense amps, and overvolted wordlines. Optimized for Energy-Delay-Area.
-                        </div>
-                        <ul class="project-tech">
-                            <li>Cadence Virtuoso</li>
-                            <li>VLSI</li>
-                            <li>FreePDK45</li>
-                        </ul>
-                    </div>
+                <div class="job">
+                    <h3>Software Engineering Intern <span class="company">@ Ultrata LLC</span></h3>
+                    <span class="job-date">June 2025 - Present | Remote</span>
+                    <ul>
+                        <li>Benchmarked S3 interface vs. MinIO using proprietary tools.</li>
+                        <li>Modified C Standard Library for compatibility with Intelligent Memory Fabric (IMF).</li>
+                        <li>Created C++ allocator classes to enable STL Vector compatibility with IMF.</li>
+                        <li>Developed a fully functional Linux FUSE filesystem from scratch that interfaces with IMF in C/C++.</li>
+                    </ul>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-title">Encrypted_Radio.v</span>
-                        <div class="project-links">
-                            <a href="https://github.com/hplp/2025-fpga-design-projects-EncryptedRadio" target="_blank"><i class="fab fa-github"></i> GIT</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-desc">
-                            Two-way text-based encrypted radio communication system on PYNQ-Z1 boards using AES-128. Utilized Vitis HLS for hardware IP generation.
-                        </div>
-                        <ul class="project-tech">
-                            <li>SystemVerilog</li>
-                            <li>Vitis HLS</li>
-                            <li>PYNQ-Z1</li>
-                        </ul>
-                    </div>
+                <div class="job">
+                    <h3>Undergraduate Researcher <span class="company">@ Swami Lab (UVa)</span></h3>
+                    <span class="job-date">Jan 2025 - Present</span>
+                    <ul>
+                        <li>Developing a low-latency (<70 ms) system using Raspberry Pi to process impedance signals from cells.</li>
+                        <li>Achieved <1 ms timing variation for sorting valve triggers, verified via oscilloscope.</li>
+                    </ul>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-title">Akida_SNN.py</span>
-                        <div class="project-links">
-                            <a href="https://github.com/Mircea-s-classes/ai-hardware-project-proposal-antimony-pentafluoride-enjoyers/tree/main" target="_blank"><i class="fab fa-github"></i> GIT</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-desc">
-                            Converted a CNN trained on MNIST to a Spiking Neural Network (SNN). Benchmarked latency and energy efficiency on Akida neuromorphic hardware.
-                        </div>
-                        <ul class="project-tech">
-                            <li>Python</li>
-                            <li>Akida</li>
-                            <li>Neuromorphic</li>
-                        </ul>
-                    </div>
+                <div class="job">
+                    <h3>NREIP Intern <span class="company">@ NSWC Philadelphia</span></h3>
+                    <span class="job-date">Oct 2025 - Dec 2025</span>
+                    <ul>
+                        <li>Collaborated on a whitepaper for Condition Based Maintenance of naval hydraulic systems. Focused on data analysis and AI integration topics.</li>
+                    </ul>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-title">RISCV_CPU.v</span>
-                        <div class="project-links">
-                            <a href="https://github.com/alexclunan/RISCV_CPU" target="_blank"><i class="fab fa-github"></i> GIT</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-desc">
-                            Combined RISC-V CPU and UART Transceiver. Supports arithmetic, logic, memory, and branch instructions. Verified with ModelSim testbenches.
-                        </div>
-                        <ul class="project-tech">
-                            <li>Verilog</li>
-                            <li>RISC-V</li>
-                            <li>ModelSim</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-title">Audio_Synth.v</span>
-                        <div class="project-links">
-                            <a href="https://github.com/alexclunan/FPGA_Synth" target="_blank"><i class="fab fa-github"></i> GIT</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-desc">
-                            FPGA-based synthesizer with LFO, mixer, waveform settings, and a delta-sigma 1-bit DAC output.
-                        </div>
-                        <ul class="project-tech">
-                            <li>Verilog</li>
-                            <li>DSP</li>
-                            <li>DAC Design</li>
-                        </ul>
-                    </div>
+                <div class="job">
+                    <h3>Head Teaching Assistant <span class="company">@ University of Virginia</span></h3>
+                    <span class="job-date">Aug 2023 - Present</span>
+                    <ul>
+                        <li>Lead a team of 15 TAs for Applied Physics (Electricity and Magnitism) (480+ students).</li>
+                        <li>Designed helpdesk systems and lab/homework/exam exercises. Nominated for Best ECE TA Award.</li>
+                        <li>Handled almost all office hours and grading logistics</li>
+                    </ul>
                 </div>
 
             </div>
@@ -216,23 +262,21 @@
 
     <section id="contact" class="section text-center">
         <div class="container">
-            <h2 class="section-title">Mail To:</h2>
-            <div class="contact-text">
-                <p>
-                    I am actively seeking full-time roles in Hardware Engineering and VLSI Design.
+            <div class="contact-box">
+                <h2>Contact Me</h2>
+                <p style="margin-bottom: 30px;">
                 </p>
-                <a href="mailto:alexclunan@gmail.com" class="btn primary"><i class="fas fa-envelope"></i> Send Email</a>
-            </div>
-            
-            <div style="margin-top: 20px;">
-                <a href="https://github.com/alexclunan" target="_blank" class="btn"><i class="fab fa-github"></i> GitHub</a>
-                <a href="https://www.linkedin.com/in/alex-clunan-92a653360/" target="_blank" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="mailto:alexclunan@gmail.com" class="btn primary">SEND EMAIL</a>
+                <div style="margin-top: 30px;">
+                    <a href="https://github.com/alexclunan" target="_blank" style="margin: 0 15px; font-weight: bold;"><i class="fab fa-github"></i> GITHUB</a>
+                    <a href="https://www.linkedin.com/in/alex-clunan-92a653360/" target="_blank" style="margin: 0 15px; font-weight: bold;"><i class="fab fa-linkedin"></i> LINKEDIN</a>
+                </div>
             </div>
         </div>
     </section>
 
     <footer class="footer">
-        <p>© 2026 Alex Clunan | Designed in Charlottesville, VA</p>
+        <p> © 2026 ALEX CLUNAN</p>
     </footer>
 
     <script src="script.js"></script>
