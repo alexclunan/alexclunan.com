@@ -19,6 +19,7 @@
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="resume.pdf" target="_blank" class="resume-link">Resume</a></li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -36,7 +37,7 @@
             </p>
             <div class="cta-buttons">
                 <a href="#projects" class="btn primary">View My Work</a>
-                <a href="#contact" class="btn secondary">Get In Touch</a>
+                <a href="resume.pdf" target="_blank" class="btn secondary"><i class="fas fa-file-pdf"></i> Resume</a>
             </div>
         </div>
     </header>
@@ -110,7 +111,7 @@
                     <h3>Head Teaching Assistant <span class="company">@ University of Virginia</span></h3>
                     <p class="job-date">Aug 2023 - Present</p>
                     <ul class="job-details">
-                        <li><strong>Applied Physics (Head TA):</strong> Manage a team of 15 TAs for a class of 480+ students. Designed helpdesk systems and curriculum materials. [cite_start]Nominated for Best ECE TA Award[cite: 1].</li>
+                        <li><strong>Applied Physics (Head TA):</strong> Manage a team of 15 TAs for a class of 480+ students. Designed helpdesk systems and curriculum materials. Nominated for Best ECE TA Award.</li>
                         <li><strong>FPGA Digital Design (TA):</strong> Assist students with Verilog/VHDL troubleshooting and hardware debugging.</li>
                     </ul>
                 </div>
@@ -128,10 +129,13 @@
                     <div class="project-content">
                         <div class="project-header">
                             <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="vlsi_report.pdf" target="_blank" title="Read Full Report"><i class="fas fa-file-pdf"></i></a>
                             </div>
+                        </div>
                         <h3 class="project-title">High-Speed 64kb SRAM Cache</h3>
                         <p class="project-desc">
-                            Designed and verified a custom 64kb SRAM array using <strong>FreePDK 45nm</strong> in Cadence Virtuoso. [cite_start]Implemented a 6T bitcell, Strongarm sense amps, and overvolted wordlines [cite: 9, 88][cite_start]. optimized for Energy-Delay-Area metrics ($6.403 \times 10^{-31}$)[cite: 10].
+                            Designed and verified a custom 64kb SRAM array using <strong>FreePDK 45nm</strong> in Cadence Virtuoso. Implemented a 6T bitcell, Strongarm sense amps, and overvolted wordlines. optimized for Energy-Delay-Area metrics ($6.403 \times 10^{-31}$).
                         </p>
                         <ul class="project-tech">
                             <li>Cadence Virtuoso</li>
@@ -151,7 +155,7 @@
                         </div>
                         <h3 class="project-title">RISC-V CPU & UART</h3>
                         <p class="project-desc">
-                            Built a combined RISC-V CPU and UART Transceiver supporting arithmetic, logic, memory, and branch instructions. [cite_start]Verified functionality with HDL testbenches and assembly programs using ModelSim[cite: 1].
+                            Built a combined RISC-V CPU and UART Transceiver supporting arithmetic, logic, memory, and branch instructions. Verified functionality with HDL testbenches and assembly programs using ModelSim.
                         </p>
                         <ul class="project-tech">
                             <li>Verilog</li>
@@ -171,7 +175,7 @@
                         </div>
                         <h3 class="project-title">FPGA Audio Synthesizer</h3>
                         <p class="project-desc">
-                            [cite_start]Designed an FPGA-based synthesizer featuring an LFO, mixer, multiple waveform settings, and a delta-sigma 1-bit DAC output[cite: 1].
+                            Designed an FPGA-based synthesizer featuring an LFO, mixer, multiple waveform settings, and a delta-sigma 1-bit DAC output.
                         </p>
                         <ul class="project-tech">
                             <li>Verilog</li>
@@ -186,12 +190,12 @@
                         <div class="project-header">
                             <i class="far fa-folder-open folder-icon"></i>
                             <div class="project-links">
-                                <a href="https://github.com/alexclunan/embedded_final" target="_blank"><i class="fab fa-github"></i></a>
+                                <a href="https://github.com/hplp/2025-fpga-design-projects-EncryptedRadio" target="_blank"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                         <h3 class="project-title">AES-128 Encrypted Radio</h3>
                         <p class="project-desc">
-                            Created a two-way text-based encrypted radio communication system using PYNQ-Z1 boards. [cite_start]Utilized Vitis HLS for hardware IP generation[cite: 1].
+                            Created a two-way text-based encrypted radio communication system using PYNQ-Z1 boards. Utilized Vitis HLS for hardware IP generation.
                         </p>
                         <ul class="project-tech">
                             <li>SystemVerilog</li>
@@ -205,10 +209,13 @@
                     <div class="project-content">
                         <div class="project-header">
                             <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/Mircea-s-classes/ai-hardware-project-proposal-antimony-pentafluoride-enjoyers/tree/main" target="_blank"><i class="fab fa-github"></i></a>
                             </div>
+                        </div>
                         <h3 class="project-title">Neuromorphic SNN Analysis</h3>
                         <p class="project-desc">
-                            [cite_start]Created and trained a CNN on MNIST, converted it to a Spiking Neural Network (SNN), and benchmarked performance/energy efficiency on Akida neuromorphic hardware[cite: 1].
+                            Created and trained a CNN on MNIST, converted it to a Spiking Neural Network (SNN), and benchmarked performance/energy efficiency on Akida neuromorphic hardware.
                         </p>
                         <ul class="project-tech">
                             <li>Python</li>
@@ -228,7 +235,7 @@
                         </div>
                         <h3 class="project-title">PONG & Arcade Games</h3>
                         <p class="project-desc">
-                            [cite_start]Implemented the classic PONG game from scratch in Verilog using pushbutton controls and VGA output[cite: 1].
+                            Implemented the classic PONG game from scratch in Verilog using pushbutton controls and VGA output.
                         </p>
                         <ul class="project-tech">
                             <li>Verilog</li>
@@ -254,7 +261,7 @@
             <div class="social-links">
                 <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/alex-clunan-92a653360/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:alex@alexclunan.com"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:alexclunan@gmail.com"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </section>
