@@ -16,8 +16,8 @@
             <a href="#" class="logo">Alex Clunan<span class="dot">.</span></a>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="hamburger">
@@ -32,7 +32,7 @@
             <h1>Alex Clunan.</h1>
             <h2 class="subtitle">I design hardware for the intelligent edge.</h2>
             <p class="hero-text">
-                I am an Electrical Engineer specializing in VLSI design, computer architecture, and embedded machine learning. I bridge the gap between complex algorithms and efficient hardware implementation.
+                I am an Electrical Engineering student at the University of Virginia (GPA 3.94) specializing in VLSI design, computer architecture, and embedded systems. I bridge the gap between high-level algorithms and silicon implementation.
             </p>
             <div class="cta-buttons">
                 <a href="#projects" class="btn primary">View My Work</a>
@@ -47,20 +47,20 @@
             <div class="about-grid">
                 <div class="about-text">
                     <p>
-                        My journey into engineering wasn't linear. I started with a focus on pre-med, volunteering as an <strong>EMT</strong> for the Charlottesville-Albemarle Rescue Squad. That high-pressure environment taught me rapid problem-solving, but I realized my true passion lay in the technology that powers modern systems.
+                        I am currently a senior at the **University of Virginia**, pursuing a B.S. in Electrical Engineering with an expected graduation in May 2026. I have a strong academic record with a **3.94 GPA** and a passion for deep hardware optimization.
                     </p>
                     <p>
-                        I pivoted to <strong>Electrical Engineering</strong>, where I now focus on VLSI and hardware architecture. Beyond the lab, I serve as the <strong>Audio Engineer</strong> for my rock band, blending my technical skills with creative expression to manage live mixes.
+                        My technical background spans from low-level transistor design (custom SRAM schematics) to high-level software engineering (C++ STL allocators and Linux filesystems). I currently serve as a **Head Teaching Assistant** for Applied Physics, leading a team of 15 TAs.
                     </p>
                     <p>
-                        Today, I work on optimizing deep learning models for neuromorphic hardware and designing secure radio systems on FPGAs.
+                        Outside of engineering, I have experience as an **EMT** for the Charlottesville-Albemarle Rescue Squad and serve as an Audio Engineer for my rock band.
                     </p>
                     <ul class="skills-list">
                         <li>Verilog / SystemVerilog</li>
+                        <li>C / C++ / Linux</li>
+                        <li>Cadence Virtuoso</li>
+                        <li>Vivado / Vitis</li>
                         <li>Python (PyTorch)</li>
-                        <li>FPGA Design (Vivado/Vitis)</li>
-                        <li>C / C++</li>
-                        <li>Neuromorphic Computing</li>
                         <li>MATLAB</li>
                     </ul>
                 </div>
@@ -69,6 +69,52 @@
                         <img src="profile.jpg" alt="Alex Clunan" onerror="this.src='https://via.placeholder.com/300'">
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">Where I've Worked</h2>
+            <div class="jobs-container">
+                
+                <div class="job">
+                    <h3>Software Engineering Intern <span class="company">@ Ultrata LLC</span></h3>
+                    <p class="job-date">June 2025 - Present | Remote</p>
+                    <ul class="job-details">
+                        <li>Developed a fully functional Linux FUSE filesystem from scratch in C/C++ to interface with the Intelligent Memory Fabric (IMF).</li>
+                        <li>Modified the C standard library and created a C++ allocator class to enable STL Vector compatibility with IMF.</li>
+                        <li>Benchmarked performance of Ultrata’s S3 interface vs. MinIO using proprietary tools.</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <h3>Undergraduate Researcher <span class="company">@ Swami Lab (UVa)</span></h3>
+                    <p class="job-date">Jan 2025 - Present</p>
+                    <ul class="job-details">
+                        <li>Developing a low-latency (<70 ms) system using a Raspberry Pi to process impedance signals from cells in a microchannel.</li>
+                        <li>Achieved <1 ms timing variation for sorting valve triggers, verified via oscilloscope and signal generators.</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <h3>NREIP Intern <span class="company">@ NSWC Philadelphia</span></h3>
+                    <p class="job-date">Oct 2025 - Dec 2025</p>
+                    <ul class="job-details">
+                        <li>Collaborated on a whitepaper for Condition Based Maintenance of naval hydraulic systems.</li>
+                        <li>Focused on the implementation of AI/computer systems for optimal pump maintenance.</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <h3>Head Teaching Assistant <span class="company">@ University of Virginia</span></h3>
+                    <p class="job-date">Aug 2023 - Present</p>
+                    <ul class="job-details">
+                        <li><strong>Applied Physics (Head TA):</strong> Manage a team of 15 TAs for a class of 480+ students. Designed helpdesk systems and curriculum materials. [cite_start]Nominated for Best ECE TA Award[cite: 1].</li>
+                        <li><strong>FPGA Digital Design (TA):</strong> Assist students with Verilog/VHDL troubleshooting and hardware debugging.</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </section>
@@ -82,129 +128,114 @@
                     <div class="project-content">
                         <div class="project-header">
                             <i class="far fa-folder-open folder-icon"></i>
+                            </div>
+                        <h3 class="project-title">High-Speed 64kb SRAM Cache</h3>
+                        <p class="project-desc">
+                            Designed and verified a custom 64kb SRAM array using <strong>FreePDK 45nm</strong> in Cadence Virtuoso. [cite_start]Implemented a 6T bitcell, Strongarm sense amps, and overvolted wordlines [cite: 9, 88][cite_start]. optimized for Energy-Delay-Area metrics ($6.403 \times 10^{-31}$)[cite: 10].
+                        </p>
+                        <ul class="project-tech">
+                            <li>Cadence Virtuoso</li>
+                            <li>VLSI</li>
+                            <li>FreePDK45</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
                             <div class="project-links">
-                                <a href="https://github.com/hplp/2025-fpga-design-projects-EncryptedRadio" target="_blank"><i class="fab fa-github"></i></a>
+                                <a href="https://github.com/alexclunan/RISCV_CPU" target="_blank"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">RISC-V CPU & UART</h3>
+                        <p class="project-desc">
+                            Built a combined RISC-V CPU and UART Transceiver supporting arithmetic, logic, memory, and branch instructions. [cite_start]Verified functionality with HDL testbenches and assembly programs using ModelSim[cite: 1].
+                        </p>
+                        <ul class="project-tech">
+                            <li>Verilog</li>
+                            <li>RISC-V</li>
+                            <li>ModelSim</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/alexclunan/FPGA_Synth" target="_blank"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">FPGA Audio Synthesizer</h3>
+                        <p class="project-desc">
+                            [cite_start]Designed an FPGA-based synthesizer featuring an LFO, mixer, multiple waveform settings, and a delta-sigma 1-bit DAC output[cite: 1].
+                        </p>
+                        <ul class="project-tech">
+                            <li>Verilog</li>
+                            <li>DSP</li>
+                            <li>DAC Design</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/alexclunan/embedded_final" target="_blank"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                         <h3 class="project-title">AES-128 Encrypted Radio</h3>
                         <p class="project-desc">
-                            Designed a secure radio system using PYNQ Z-1 boards. Utilized Vitis HLS to generate hardware IP for an AES-128 encryption module via AXI protocol. Developed C driver code to transmit encrypted messages between boards.
+                            Created a two-way text-based encrypted radio communication system using PYNQ-Z1 boards. [cite_start]Utilized Vitis HLS for hardware IP generation[cite: 1].
+                        </p>
+                        <ul class="project-tech">
+                            <li>SystemVerilog</li>
+                            <li>Vitis HLS</li>
+                            <li>PYNQ-Z1</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            </div>
+                        <h3 class="project-title">Neuromorphic SNN Analysis</h3>
+                        <p class="project-desc">
+                            [cite_start]Created and trained a CNN on MNIST, converted it to a Spiking Neural Network (SNN), and benchmarked performance/energy efficiency on Akida neuromorphic hardware[cite: 1].
+                        </p>
+                        <ul class="project-tech">
+                            <li>Python</li>
+                            <li>Akida</li>
+                            <li>Machine Learning</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="far fa-folder-open folder-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/alexclunan/Personal_FPGA_Projects" target="_blank"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">PONG & Arcade Games</h3>
+                        <p class="project-desc">
+                            [cite_start]Implemented the classic PONG game from scratch in Verilog using pushbutton controls and VGA output[cite: 1].
                         </p>
                         <ul class="project-tech">
                             <li>Verilog</li>
-                            <li>Vitis HLS</li>
-                            <li>PYNQ Z-1</li>
-                            <li>C</li>
+                            <li>VGA Timing</li>
+                            <li>Game Logic</li>
                         </ul>
                     </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-header">
-                            <i class="far fa-folder-open folder-icon"></i>
-                            <div class="project-links">
-                                <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">CNN to SNN Conversion (Akida)</h3>
-                        <p class="project-desc">
-                            Created and trained a standard CNN on the MNIST dataset and converted it to a Spiking Neural Network (SNN) to benchmark the Akida neuromorphic hardware. Analyzed latency and energy efficiency trade-offs.
-                        </p>
-                        <ul class="project-tech">
-                            <li>Python</li>
-                            <li>PyTorch</li>
-                            <li>Akida MetaTF</li>
-                            <li>SNN</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-header">
-                            <i class="far fa-folder-open folder-icon"></i>
-                            <div class="project-links">
-                                <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Hydraulic Digital Twin</h3>
-                        <p class="project-desc">
-                            Developed a predictive maintenance system for naval hydraulic equipment. Utilized Deep Neural Networks (DNNs) to model system behavior and detect anomalies before critical failure.
-                        </p>
-                        <ul class="project-tech">
-                            <li>Deep Learning</li>
-                            <li>Digital Twins</li>
-                            <li>Python</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-header">
-                            <i class="far fa-folder-open folder-icon"></i>
-                            <div class="project-links">
-                                <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">Impact of H.265 Codec</h3>
-                        <p class="project-desc">
-                            Authored a technical research paper analyzing the societal and technical impacts of the H.265 video codec, specifically examining its role in enabling the rise of short-form video content platforms.
-                        </p>
-                        <ul class="project-tech">
-                            <li>Video Compression</li>
-                            <li>H.265/HEVC</li>
-                            <li>Research</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-header">
-                            <i class="far fa-folder-open folder-icon"></i>
-                            <div class="project-links">
-                                <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <h3 class="project-title">SQLite Performance Benchmark</h3>
-                        <p class="project-desc">
-                            Designed a comprehensive benchmarking plan to compare custom SQLite implementations against standard services. Included automated Python scripts for data analysis and performance visualization.
-                        </p>
-                        <ul class="project-tech">
-                            <li>Python</li>
-                            <li>SQL</li>
-                            <li>Data Analysis</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="section">
-        <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <div class="jobs-container">
-                
-                <div class="job">
-                    <h3>Undergraduate Researcher <span class="company">@ University of Virginia</span></h3>
-                    <p class="job-date">2024 - Present</p>
-                    <ul class="job-details">
-                        <li>Conducting research on neuromorphic computing architectures and their application in edge AI.</li>
-                        <li>Benchmarking energy consumption of Spiking Neural Networks (SNNs) versus traditional CNNs on dedicated hardware.</li>
-                    </ul>
-                </div>
-
-                <div class="job">
-                    <h3>Emergency Medical Technician <span class="company">@ CARS</span></h3>
-                    <p class="job-date">Previous</p>
-                    <ul class="job-details">
-                        <li>Volunteered as an EMT for the Charlottesville-Albemarle Rescue Squad.</li>
-                        <li>Managed high-pressure medical emergencies and coordinated with hospital staff for patient transfer.</li>
-                    </ul>
                 </div>
 
             </div>
@@ -216,14 +247,14 @@
             <p class="greeting">What's Next?</p>
             <h2 class="section-title">Get In Touch</h2>
             <p class="contact-text">
-                I am actively applying to graduate programs and research opportunities in VLSI and Computer Architecture. I'd love to connect!
+                I am currently open to full-time opportunities in Hardware Engineering, VLSI, and Embedded Systems starting Summer 2026.
             </p>
-            <a href="mailto:alex@example.com" class="btn primary">Say Hello</a>
+            <a href="mailto:alexclunan@gmail.com" class="btn primary">Say Hello</a>
             
             <div class="social-links">
                 <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:alex@example.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/alex-clunan-92a653360/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:alex@alexclunan.com"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </section>
