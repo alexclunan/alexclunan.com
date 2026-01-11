@@ -1,11 +1,11 @@
 :root {
-    /* "Technical Manual" Palette */
-    --bg-color: #f4f4f0;         /* Off-white paper */
-    --surface-color: #ffffff;    /* Clean white */
-    --text-main: #1a1a1a;        /* Near black */
-    --text-dim: #555555;
-    --accent-color: #0033cc;     /* Engineering Blue */
-    --border-color: #000000;     /* Stark borders */
+    /* Updated Palette to mesh with Stanford Red */
+    --bg-color: #f5f5f7;         /* Light Cool Gray - Modern & Clean */
+    --surface-color: #ffffff;    /* White */
+    --text-main: #2b2b2b;        /* Deep Charcoal */
+    --text-dim: #555555;         /* Medium Gray */
+    --accent-color: #8C1515;     /* Stanford Cardinal Red */
+    --border-color: #2b2b2b;     /* Matching Charcoal Border */
     
     /* Layout Variables */
     --border-width: 2px;
@@ -19,6 +19,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Fix for "loading bar" scroll issue */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
 }
 
 body {
