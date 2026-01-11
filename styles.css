@@ -287,25 +287,24 @@ ul { list-style: none; }
     text-align: center;
     max-width: 700px;
     margin: 0 auto;
-}
-
-.contact-card p {
-    font-size: 1.1rem;
-    color: var(--text-dim);
-    margin-bottom: 30px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    /* Ensures content does not bleed out of the box */
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
 }
 
 .email-link {
     display: block;
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    /* Adjusted font size for better fit on mobile */
+    font-size: clamp(1rem, 5vw, 1.5rem); 
     font-weight: bold;
     color: var(--accent-color);
     text-decoration: none;
     margin-bottom: 40px;
+    /* Prevents long emails from overflowing the border */
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .email-link:hover {
