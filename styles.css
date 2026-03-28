@@ -1,18 +1,24 @@
 :root {
-    /* Updated Palette to mesh with Stanford Red */
-    --bg-color: #f5f5f7;         /* Light Cool Gray - Modern & Clean */
-    --surface-color: #ffffff;    /* White */
-    --text-main: #2b2b2b;        /* Deep Charcoal */
-    --text-dim: #555555;         /* Medium Gray */
-    --accent-color: #8C1515;     /* Stanford Cardinal Red */
-    --border-color: #2b2b2b;     /* Matching Charcoal Border */
+    /* University of Virginia brand-aligned (Jefferson blue / orange) */
+    --uva-navy: #232d4d;
+    --uva-orange: #e57200;
+    --uva-orange-contrast: #b35c00;
+
+    --bg-color: #f4f5f8;
+    --surface-color: #ffffff;
+    --text-main: var(--uva-navy);
+    --text-dim: #4a5568;
+    --accent-color: var(--uva-orange);
+    --border-color: var(--uva-navy);
     
     /* Layout Variables */
     --border-width: 2px;
-    --shadow-offset: 4px;        /* Hard shadow depth */
+    --shadow-offset: 4px;
+    --section-pad: clamp(2rem, 4vw, 2.75rem);
+    --section-pad-tight: clamp(1.25rem, 3vw, 1.75rem);
     
-    --font-heading: 'Courier New', Courier, monospace; /* Raw engineering feel */
-    --font-body: 'Helvetica', 'Arial', sans-serif;     /* Readable body text */
+    --font-heading: 'Courier New', Courier, monospace;
+    --font-body: 'Source Sans 3', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -21,7 +27,6 @@
     box-sizing: border-box;
 }
 
-/* Fix for "loading bar" scroll issue */
 html, body {
     width: 100%;
     overflow-x: hidden;
@@ -32,8 +37,34 @@ body {
     color: var(--text-main);
     font-family: var(--font-body);
     line-height: 1.6;
-    background-image: radial-gradient(#d0d0d0 1px, transparent 1px);
-    background-size: 20px 20px; /* Subtle engineering grid */
+    background-image: radial-gradient(rgba(35, 45, 77, 0.12) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Skip link */
+.skip-link {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus-visible {
+    left: 1rem;
+    top: 1rem;
+    width: auto;
+    height: auto;
+    padding: 0.75rem 1rem;
+    z-index: 1000;
+    background: var(--surface-color);
+    border: var(--border-width) solid var(--border-color);
+    font-family: var(--font-heading);
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    text-decoration: none;
 }
 
 /* Typography */
@@ -45,10 +76,20 @@ h1, h2, h3 {
 }
 
 h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 10px; }
-h2 { font-size: 1.8rem; margin-bottom: 20px; border-bottom: var(--border-width) solid var(--border-color); padding-bottom: 10px; }
+h2 { font-size: 1.8rem; margin-bottom: 1rem; border-bottom: var(--border-width) solid var(--border-color); padding-bottom: 8px; }
 h3 { font-size: 1.2rem; }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.btn:focus-visible {
+    outline-offset: 3px;
+}
 
 /* Utilities */
 .container {
@@ -57,7 +98,15 @@ ul { list-style: none; }
     padding: 0 20px;
 }
 
-.section { padding: 80px 0; }
+.section {
+    padding-top: var(--section-pad);
+    padding-bottom: var(--section-pad);
+}
+
+/* Tighter stack between major blocks (avoids double 80px-style gaps) */
+main > .section + .section {
+    padding-top: var(--section-pad-tight);
+}
 
 /* Buttons - Hard Tech Style */
 .btn {
@@ -84,7 +133,11 @@ ul { list-style: none; }
     box-shadow: 2px 2px 0px var(--border-color);
 }
 
-.primary { background: var(--accent-color); color: #fff; }
+.primary {
+    background: var(--accent-color);
+    color: #fff;
+    border-color: var(--uva-navy);
+}
 
 /* Navbar */
 .navbar {
@@ -95,24 +148,54 @@ ul { list-style: none; }
     border-bottom: var(--border-width) solid var(--border-color);
     z-index: 100;
     padding: 15px 0;
+    transition: box-shadow 0.2s ease;
+}
+
+.navbar--scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .nav-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
 .logo {
     font-family: var(--font-heading);
     font-weight: 900;
     font-size: 1.2rem;
-    background: var(--text-main);
+    background: var(--uva-navy);
     color: var(--surface-color);
     padding: 5px 10px;
 }
 
-.nav-links { display: flex; gap: 25px; }
+.nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: var(--border-width) solid var(--border-color);
+    background: var(--surface-color);
+    color: var(--text-main);
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
 .nav-links a {
     font-family: var(--font-heading);
     font-weight: bold;
@@ -132,16 +215,21 @@ ul { list-style: none; }
 
 /* Hero Section */
 .hero {
-    min-height: 85vh;
+    min-height: min(82vh, 52rem);
     display: flex;
     align-items: center;
     padding-top: 80px;
+    padding-bottom: var(--section-pad);
 }
 
 .hero-content {
     max-width: 800px;
     border-left: 5px solid var(--accent-color);
     padding-left: 30px;
+}
+
+.hero-actions {
+    margin-top: 30px;
 }
 
 .label {
@@ -166,11 +254,16 @@ ul { list-style: none; }
 .about-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 40px;
+    gap: clamp(1.25rem, 3vw, 2rem);
     align-items: start;
 }
 
 .about-text p { margin-bottom: 20px; font-size: 1.05rem; }
+
+.skills-two-col {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
 
 .skills-container {
     margin-top: 20px;
@@ -178,6 +271,19 @@ ul { list-style: none; }
     background: var(--surface-color);
     padding: 20px;
     box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+}
+
+.skills-container--flush {
+    margin-top: 0;
+}
+
+.label--skills {
+    color: var(--uva-navy);
+    margin-bottom: 10px;
+}
+
+.skills-list--single {
+    grid-template-columns: 1fr;
 }
 
 .skills-list {
@@ -200,8 +306,8 @@ ul { list-style: none; }
 /* Projects - Tech Spec Style */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: clamp(1.25rem, 3vw, 1.75rem);
 }
 
 .project-card {
@@ -213,12 +319,30 @@ ul { list-style: none; }
     flex-direction: column;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .project-card {
+        transition: none;
+    }
+    .btn {
+        transition: none;
+    }
+    .navbar {
+        transition: none;
+    }
+}
+
 .project-card:hover {
     transform: translateY(-5px);
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .project-card:hover {
+        transform: none;
+    }
+}
+
 .project-header {
-    background: var(--text-main);
+    background: var(--uva-navy);
     color: var(--surface-color);
     padding: 12px 15px;
     display: flex;
@@ -234,25 +358,33 @@ ul { list-style: none; }
     margin-left: 10px;
     font-size: 1.1rem;
 }
-.project-links a:hover { color: var(--accent-color); }
+.project-links a:hover { color: var(--uva-orange); }
 
 .project-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
 .project-desc { font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
 
 .tech-stack {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid rgba(35, 45, 77, 0.15);
     padding-top: 15px;
 }
 .tech-label { font-family: var(--font-heading); font-size: 0.75rem; color: var(--text-dim); display: block; margin-bottom: 5px; }
 .project-tech { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--font-heading); font-size: 0.8rem; }
-.project-tech li { background: #eee; padding: 2px 6px; border: 1px solid #ccc; }
+.project-tech li {
+    background: rgba(229, 114, 0, 0.1);
+    padding: 2px 6px;
+    border: 1px solid rgba(35, 45, 77, 0.2);
+}
 
 /* Experience - Timeline Spec */
 .job {
     border-left: 2px solid var(--border-color);
     padding-left: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 1.75rem;
     position: relative;
+}
+
+.section .job:last-child {
+    margin-bottom: 0;
 }
 
 .job::before {
@@ -267,7 +399,7 @@ ul { list-style: none; }
 }
 
 .job h3 { margin-bottom: 5px; }
-.company { color: var(--accent-color); }
+.company { color: var(--uva-orange-contrast); }
 .job-date { 
     font-family: var(--font-heading); 
     font-size: 0.85rem; 
@@ -277,17 +409,14 @@ ul { list-style: none; }
 }
 
 /* Contact */
-/* --- Simplified Contact Styles --- */
-
 .contact-card {
     background: var(--surface-color);
     border: var(--border-width) solid var(--border-color);
     box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
-    padding: 60px 20px;
+    padding: 2.5rem 20px;
     text-align: center;
     max-width: 700px;
     margin: 0 auto;
-    /* Ensures content does not bleed out of the box */
     overflow-wrap: break-word; 
     word-wrap: break-word;
 }
@@ -295,13 +424,11 @@ ul { list-style: none; }
 .email-link {
     display: block;
     font-family: var(--font-heading);
-    /* Adjusted font size for better fit on mobile */
     font-size: clamp(1rem, 5vw, 1.5rem); 
     font-weight: bold;
     color: var(--accent-color);
     text-decoration: none;
-    margin-bottom: 40px;
-    /* Prevents long emails from overflowing the border */
+    margin-bottom: 1.75rem;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -309,7 +436,7 @@ ul { list-style: none; }
 
 .email-link:hover {
     text-decoration: underline;
-    color: var(--text-main);
+    color: var(--uva-orange-contrast);
 }
 
 .social-links {
@@ -333,14 +460,41 @@ ul { list-style: none; }
 
 .footer {
     text-align: center;
-    padding: 40px;
+    padding: 2rem 20px;
     font-family: var(--font-heading);
     font-size: 0.8rem;
     color: var(--text-dim);
 }
 
 @media (max-width: 768px) {
-    .about-grid { grid-template-columns: 1fr; }
+    .about-grid,
+    .about-grid.skills-two-col {
+        grid-template-columns: 1fr;
+    }
     .hero h1 { font-size: 2.5rem; }
-    .nav-links { display: none; }
+    .nav-toggle {
+        display: inline-flex;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        padding: 10px 0 20px;
+        border-top: 1px solid rgba(35, 45, 77, 0.15);
+    }
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+    .nav-links a {
+        display: block;
+        padding: 12px 0;
+    }
+    .nav-links a:hover::after {
+        display: none;
+    }
+    .navbar.nav-open .nav-links {
+        display: flex;
+    }
 }

@@ -3,27 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Clunan | Electrical Engineer</title>
+    <title>Alex Clunan | Electrical Engineering Student</title>
     <meta name="description" content="Engineering Portfolio of Alex Clunan - VLSI, FPGA, & Embedded Systems">
+    <link rel="canonical" href="https://alexclunan.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alexclunan.com/">
+    <meta property="og:title" content="Alex Clunan | Electrical Engineering Student">
+    <meta property="og:description" content="Engineering Portfolio of Alex Clunan - VLSI, FPGA, & Embedded Systems">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Alex Clunan | Electrical Engineering Student">
+    <meta name="twitter:description" content="Engineering Portfolio of Alex Clunan - VLSI, FPGA, & Embedded Systems">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body id="top">
 
-    <nav class="navbar">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav class="navbar" aria-label="Primary">
         <div class="container nav-container">
-            <a href="#" class="logo">Alex Clunan // Portfolio</a>
-            <ul class="nav-links">
+            <a href="#top" class="logo">Alex Clunan // Portfolio</a>
+            <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+            <ul class="nav-links" id="primary-nav">
                 <li><a href="#roles">ROLES</a></li>
                 <li><a href="#experience">EXPERIENCE</a></li>
                 <li><a href="#projects">PROJECTS</a></li>
                 <li><a href="#skills">SKILLS</a></li>
                 <li><a href="#contact">CONTACT</a></li>
-                <li><a href="resume.pdf" target="_blank">RESUME</a></li>
+                <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer">RESUME</a></li>
             </ul>
         </div>
     </nav>
 
+    <main id="main-content">
     <header class="hero">
         <div class="container hero-content">
             <span class="label">/// PORTFOLIO</span>
@@ -32,9 +49,9 @@
             <p>
                 I am a senior Electrical Engineering student at the University of Virginia specializing in <strong>VLSI design</strong>, <strong>computer hardware architecture</strong>, and <strong>embedded systems</strong>. My work spans from nanoscale circuit optimization to systems-level hardware-software integration.
             </p>
-            <div style="margin-top: 30px;">
+            <div class="hero-actions">
                 <a href="#projects" class="btn primary">SELECTED PROJECTS</a>
-                <a href="resume.pdf" target="_blank" class="btn">VIEW RESUME</a>
+                <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="btn">VIEW RESUME</a>
             </div>
         </div>
     </header>
@@ -42,7 +59,7 @@
     <section id="roles" class="section">
         <div class="container">
             <h2>01 // Current Roles</h2>
-            <div class="jobs-container">
+            <div>
                 <div class="job">
                     <h3>Head Teaching Assistant <span class="company">- Applied Physics (Electricity & Magnetism)</span></h3>
                     <p>Leading a team of 15 TAs, coordinating lab sessions, ensuring grading and office hour duties are met, and developing curriculum materials.</p>
@@ -64,7 +81,7 @@
     <section id="experience" class="section">
         <div class="container">
             <h2>02 // Experience</h2>
-            <div class="jobs-container">
+            <div>
                 
                 <div class="job">
                     <h3>Software Engineering Intern <span class="company">@ Ultrata LLC</span></h3>
@@ -77,7 +94,7 @@
                 </div>
 
                 <div class="job">
-                    <h3>Naval Reasearch Enterprise Internship Program (NREIP) Fall Engagement <span class="company">@ Naval Surface Warefare Center (NSWC) Philadelphia</span></h3>
+                    <h3>Naval Research Enterprise Internship Program (NREIP) Fall Engagement <span class="company">@ Naval Surface Warfare Center (NSWC) Philadelphia</span></h3>
                     <span class="job-date">Oct 2025 - Dec 2025</span>
                     <ul>
                         <li>Collaborated on a whitepaper for Condition Based Maintenance of naval hydraulic systems. Focused on data analysis and AI integration topics.</li>
@@ -105,24 +122,25 @@
         <div class="container">
             <h2>03 // Selected Projects</h2>
             <div class="projects-grid">
-                
+
                 <div class="project-card">
                     <div class="project-header">
-                        <span class="project-title">CUSTOM 64KB SRAM ARRAY DESIGN</span>
+                        <span class="project-title">CUSTOM IMPEDANCE ANALYZER</span>
                         <div class="project-links">
-                            <a href="vlsi_report.pdf" target="_blank" title="Read Technical Report"><i class="fas fa-file-pdf"></i></a>
+                            <a href="https://github.com/alexclunan/impedance-analyzer" target="_blank" rel="noopener noreferrer" aria-label="Custom impedance analyzer — open GitHub repository"><i class="fab fa-github" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
                         <p class="project-desc">
-                            Designed and optimized a complete SRAM system in <strong>FreePDK 45nm</strong> using Cadence Virtuoso. Implemented custom 6T bitcells and evaluated multiple sense amplifier and decoder architectures. Applied dynamic wordline voltage techniques to optimize the ActiveEnergyPerAccess×Delay²×Area×IdlePower metric. Verified the design using SPICE simulations, checking acrossing PVT corners.
+                            <strong>In progress (Spring 2026 capstone).</strong> Collaboration with Swami Lab at UVA: lock-in amplifier and processing pipeline for real-time <strong>impedance</strong> analysis to support cell sorting (Verilog, DSP, FPGA, and PCB work).
                         </p>
                         <div class="tech-stack">
                             <span class="tech-label">TECHNOLOGIES</span>
                             <ul class="project-tech">
-                                <li>Cadence Virtuoso</li>
-                                <li>FreePDK45</li>
-                                <li>SPICE Simulation</li>
+                                <li>Verilog</li>
+                                <li>DSP</li>
+                                <li>FPGA</li>
+                                <li>PCB Design</li>
                             </ul>
                         </div>
                     </div>
@@ -132,7 +150,7 @@
                     <div class="project-header">
                         <span class="project-title">SECURE TWO-WAY RADIO SYSTEM</span>
                         <div class="project-links">
-                            <a href="https://github.com/hplp/2025-fpga-design-projects-EncryptedRadio" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://github.com/hplp/2025-fpga-design-projects-EncryptedRadio" target="_blank" rel="noopener noreferrer" aria-label="Secure two-way radio project — open GitHub repository"><i class="fab fa-github" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
@@ -153,21 +171,21 @@
 
                 <div class="project-card">
                     <div class="project-header">
-                        <span class="project-title">SPIKING NEURAL NETWORK ACCELERATION</span>
+                        <span class="project-title">CUSTOM 64KB SRAM ARRAY DESIGN</span>
                         <div class="project-links">
-                            <a href="https://github.com/Mircea-s-classes/ai-hardware-project-proposal-antimony-pentafluoride-enjoyers/tree/main" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="vlsi_report.pdf" target="_blank" rel="noopener noreferrer" aria-label="SRAM design project — open technical report (PDF)"><i class="fas fa-file-pdf" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
                         <p class="project-desc">
-                            Developed and trained a Convolutional Neural Network (CNN) for MNIST classification, then converted it to a Spiking Neural Network (SNN) for deployment on <strong>BrainChip Akida</strong> hardware. Benchmarked inference latency, energy efficiency, and accuracy against Intel i7-8700k CPU baseline.
+                            Designed and optimized a complete SRAM system in <strong>FreePDK 45nm</strong> using Cadence Virtuoso. Implemented custom 6T bitcells and evaluated multiple sense amplifier and decoder architectures. Applied dynamic wordline voltage techniques to optimize the ActiveEnergyPerAccess×Delay²×Area×IdlePower metric. Verified the design using SPICE simulations, checking across PVT corners.
                         </p>
                         <div class="tech-stack">
                             <span class="tech-label">TECHNOLOGIES</span>
                             <ul class="project-tech">
-                                <li>Python (TensorFlow)</li>
-                                <li>Akida SDK</li>
-                                <li>Neuromorphic Hardware</li>
+                                <li>Cadence Virtuoso</li>
+                                <li>FreePDK45</li>
+                                <li>SPICE Simulation</li>
                             </ul>
                         </div>
                     </div>
@@ -177,7 +195,7 @@
                     <div class="project-header">
                         <span class="project-title">RISC-V SOFT-CORE PROCESSOR</span>
                         <div class="project-links">
-                            <a href="https://github.com/alexclunan/RISCV_CPU" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://github.com/alexclunan/RISCV_CPU" target="_blank" rel="noopener noreferrer" aria-label="RISC-V CPU project — open GitHub repository"><i class="fab fa-github" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
@@ -199,7 +217,7 @@
                     <div class="project-header">
                         <span class="project-title">FPGA AUDIO SYNTHESIZER</span>
                         <div class="project-links">
-                            <a href="https://github.com/alexclunan/FPGA_Synth" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://github.com/alexclunan/FPGA_Synth" target="_blank" rel="noopener noreferrer" aria-label="FPGA audio synthesizer — open GitHub repository"><i class="fab fa-github" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
@@ -219,22 +237,45 @@
 
                 <div class="project-card">
                     <div class="project-header">
-                        <span class="project-title">CUSTOM IMPEDANCE ANLYZER</span>
+                        <span class="project-title">SPIKING NEURAL NETWORK ACCELERATION</span>
                         <div class="project-links">
-                            <a href="https://github.com/alexclunan/impedance-analyzer" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://github.com/Mircea-s-classes/ai-hardware-project-proposal-antimony-pentafluoride-enjoyers/tree/main" target="_blank" rel="noopener noreferrer" aria-label="Spiking neural network project — open GitHub repository"><i class="fab fa-github" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="project-content">
                         <p class="project-desc">
-                            This is for my Spring 2026 Capstone Project and in collaboration with Swami Lab at UVA. This project will include the implementation of a lock-in amplifier and processing system that will allow real-time analysis of impedence signals for cell sorting. 
+                            Developed and trained a Convolutional Neural Network (CNN) for MNIST classification, then converted it to a Spiking Neural Network (SNN) for deployment on <strong>BrainChip Akida</strong> hardware. Benchmarked inference latency, energy efficiency, and accuracy against Intel i7-8700k CPU baseline.
                         </p>
                         <div class="tech-stack">
                             <span class="tech-label">TECHNOLOGIES</span>
                             <ul class="project-tech">
-                                <li>Verilog</li>
-                                <li>DSP</li>
-                                <li>FPGA</li>
-                                <li>PCB Design</li>
+                                <li>Python (TensorFlow)</li>
+                                <li>Akida SDK</li>
+                                <li>Neuromorphic Hardware</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">SCAMSHIELD (HOOHACKS 2026)</span>
+                        <div class="project-links">
+                            <a href="https://devpost.com/software/scamshield-87rbxe" target="_blank" rel="noopener noreferrer" aria-label="ScamShield — open project on Devpost"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-desc">
+                            <strong>3rd place overall.</strong> Raspberry Pi system that listens to phone calls in real time, scores scam risk with Gemini and triggers immediate alerts via a Google Nest Speaker, LEDs/buzzer, and family notifications with a <strong>Next.js</strong> / <strong>Auth0</strong> dashboard on <strong>Vercel</strong>. Built with <strong>FastAPI</strong>, local STT, and <strong>SQLite</strong> logging.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-label">TECHNOLOGIES</span>
+                            <ul class="project-tech">
+                                <li>Raspberry Pi</li>
+                                <li>Python / FastAPI</li>
+                                <li>Next.js / TypeScript</li>
+                                <li>Gemini API</li>
+                                <li>Auth0 / Vercel</li>
                             </ul>
                         </div>
                     </div>
@@ -247,19 +288,19 @@
     <section id="skills" class="section">
         <div class="container">
             <h2>04 // Technical Skills</h2>
-            <div class="about-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="skills-container" style="margin-top:0;">
-                    <span class="label" style="color:black; margin-bottom:10px;">HARDWARE & TOOLS</span>
-                    <ul class="skills-list" style="grid-template-columns: 1fr;">
+            <div class="about-grid skills-two-col">
+                <div class="skills-container skills-container--flush">
+                    <span class="label label--skills">HARDWARE & TOOLS</span>
+                    <ul class="skills-list skills-list--single">
                         <li>Cadence Virtuoso</li>
                         <li>Xilinx Vitis / Vivado</li>
                         <li>ModelSim / Quartus</li>
                         <li>FPGA Development</li>
                     </ul>
                 </div>
-                <div class="skills-container" style="margin-top:0;">
-                    <span class="label" style="color:black; margin-bottom:10px;">PROGRAMMING & SPECIALIZATIONS</span>
-                    <ul class="skills-list" style="grid-template-columns: 1fr;">
+                <div class="skills-container skills-container--flush">
+                    <span class="label label--skills">PROGRAMMING & SPECIALIZATIONS</span>
+                    <ul class="skills-list skills-list--single">
                         <li>C / C++ / Python</li>
                         <li>Verilog / SystemVerilog</li>
                         <li>RISC-V Assembly</li>
@@ -274,17 +315,16 @@
         <div class="container">
             <h2>05 // Contact</h2>
             <div class="contact-card">
-               
-                
                 <a href="mailto:portfolio@alexclunan.com" class="email-link">portfolio@alexclunan.com</a>
 
                 <div class="social-links">
-                    <a href="https://github.com/alexclunan" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://www.linkedin.com/in/alex-clunan-92a653360/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://github.com/alexclunan" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
+                    <a href="https://www.linkedin.com/in/alex-clunan-92a653360/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
                 </div>
             </div>
         </div>
     </section>
+    </main>
 
     <footer class="footer">
         <p> © 2026 ALEX CLUNAN</p>
