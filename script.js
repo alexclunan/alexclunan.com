@@ -1,67 +1,58 @@
-const prefersReducedMotion = () =>
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-const scrollBehavior = () => (prefersReducedMotion() ? 'auto' : 'smooth');
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', function (e) {
-        const targetId = this.getAttribute('href');
-        const behavior = scrollBehavior();
-
-        if (targetId !== '#' && targetId !== '') {
-            e.preventDefault();
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior });
-            }
-        } else {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior,
-            });
-        }
-    });
-});
-
-// Mobile navigation
-const navbar = document.querySelector('.navbar');
+// Mobile navigation ---------------------------------------------------------
+const nav = document.querySelector('.nav');
 const navToggle = document.querySelector('.nav-toggle');
-const primaryNav = document.querySelector('#primary-nav');
+const navLinks = document.querySelectorAll('#primary-nav a');
+const mobileQuery = window.matchMedia('(max-width: 720px)');
 
-const closeMobileNav = () => {
-    if (!navbar || !navToggle) return;
-    navbar.classList.remove('nav-open');
-    navToggle.setAttribute('aria-expanded', 'false');
-    navToggle.setAttribute('aria-label', 'Open menu');
+const setMenu = (open) => {
+    if (!nav || !navToggle) return;
+    nav.classList.toggle('is-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 };
 
 navToggle?.addEventListener('click', () => {
-    if (!navbar) return;
-    const open = !navbar.classList.contains('nav-open');
-    navbar.classList.toggle('nav-open', open);
-    navToggle.setAttribute('aria-expanded', String(open));
-    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    setMenu(!nav.classList.contains('is-open'));
 });
 
-primaryNav?.querySelectorAll('a').forEach((link) => {
+navLinks.forEach((link) => {
     link.addEventListener('click', () => {
-        if (window.matchMedia('(max-width: 768px)').matches) {
-            closeMobileNav();
-        }
+        if (mobileQuery.matches) setMenu(false);
     });
 });
 
-window.addEventListener('resize', () => {
-    if (window.matchMedia('(min-width: 769px)').matches) {
-        closeMobileNav();
+mobileQuery.addEventListener('change', (e) => {
+    if (!e.matches) setMenu(false);
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav?.classList.contains('is-open')) {
+        setMenu(false);
+        navToggle?.focus();
     }
 });
 
-// Navbar scroll effect (CSS class instead of inline styles)
-window.addEventListener('scroll', () => {
-    if (!navbar) return;
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    navbar.classList.toggle('navbar--scrolled', scrollTop > 100);
-});
+// Highlight the nav link for the section in view ---------------------------
+const sections = [...document.querySelectorAll('main section[id]')];
+const linkFor = new Map(
+    [...navLinks]
+        .filter((a) => a.getAttribute('href')?.startsWith('#'))
+        .map((a) => [a.getAttribute('href').slice(1), a])
+);
+
+if ('IntersectionObserver' in window && sections.length) {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                const link = linkFor.get(entry.target.id);
+                if (!link) return;
+                if (entry.isIntersecting) {
+                    linkFor.forEach((a) => a.classList.remove('is-active'));
+                    link.classList.add('is-active');
+                }
+            });
+        },
+        { rootMargin: '-40% 0px -55% 0px' }
+    );
+    sections.forEach((s) => observer.observe(s));
+}

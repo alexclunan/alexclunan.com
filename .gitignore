@@ -1,0 +1,9 @@
+.DS_Store
+.claude/
+
+# Raw image originals (large). Web-sized copies live in assets/img/.
+headshot.png
+custom_pcb.jpeg
+iza_board.jpeg
+iza_final_arch.png
+microfludic_setup.png
